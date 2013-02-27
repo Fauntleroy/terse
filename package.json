@@ -21,6 +21,7 @@
     "express": "~3.1.0",
     "passport": "~0.1.15",
     "request": "~2.14.0",
-    "express3-handlebars": "~0.3.2"
+    "express3-handlebars": "~0.3.2",
+    "igneous": "~0.1.6"
   }
 }
