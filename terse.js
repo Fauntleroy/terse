@@ -36,6 +36,7 @@ var igneous_middleware = igneous({
 				'vendor/bootstrap',
 				'vendor/underscore',
 				'vendor/backbone',
+				'vendor/codemirror',
 				'vendor/handlebars',
 				'terse.js',
 				'models',
@@ -48,6 +49,7 @@ var igneous_middleware = igneous({
 		{
 			route: 'templates/terse.js',
 			type: 'jst',
+			extensions: ['hbs'],
 			jst_lang: 'handlebars',
 			jst_namespace: 'templates',
 			base: 'templates',
