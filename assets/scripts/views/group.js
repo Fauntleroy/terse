@@ -28,9 +28,18 @@ terse.Views.Group = Backbone.View.extend({
 		this.$result = $('#result');
 		this.$result_iframe = this.$result.find('iframe');
 
-		this.html_editor = CodeMirror.fromTextArea( this.$html_textarea[0], { mode: 'htmlmixed' } );
-		this.css_editor = CodeMirror.fromTextArea( this.$css_textarea[0], { mode: 'css' } );
-		this.js_editor = CodeMirror.fromTextArea( this.$js_textarea[0], { mode: 'javascript' } );
+		this.html_editor = CodeMirror.fromTextArea( this.$html_textarea[0], {
+			mode: 'htmlmixed',
+			lineNumbers: true
+		});
+		this.css_editor = CodeMirror.fromTextArea( this.$css_textarea[0], {
+			mode: 'css',
+			lineNumbers: true
+		});
+		this.js_editor = CodeMirror.fromTextArea( this.$js_textarea[0], {
+			mode: 'javascript',
+			lineNumbers: true
+		});
 
 		this.html_editor.on( 'change', this.changeHTML );
 		this.css_editor.on( 'change', this.changeCSS );
