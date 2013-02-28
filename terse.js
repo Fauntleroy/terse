@@ -40,7 +40,6 @@ var igneous_middleware = igneous({
 				'vendor/handlebars',
 				'terse.js',
 				'models',
-				'collections',
 				'views',
 				'routers',
 				'application.js'
