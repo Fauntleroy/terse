@@ -6,6 +6,7 @@
 
 	<link rel="stylesheet" href="/styles/terse.css">
 
+	<script>{{{javascript}}}</script>
 	<script src="/templates/terse.js"></script>
 	<script src="/scripts/terse.js"></script>
 
@@ -13,6 +14,14 @@
 <body>
 
 	<a id="terse" href="#">Terse</a>
+	{{#user}}
+	<span id="user">
+		<img src="{{avatar}}" /> {{username}}
+	</span>
+	{{/user}}
+	{{^user}}
+	<a id="github" href="/auth/github" class="btn btn-mini">Login via GitHub <i class="icon-github-alt"></i></a>
+	{{/user}}
 
 	<div id="toolbar" class="nav pull-right"></div>
 

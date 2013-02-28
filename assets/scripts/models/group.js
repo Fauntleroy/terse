@@ -2,6 +2,20 @@ terse.Models.Group = Backbone.Model.extend({
 
 	urlRoot: 'https://api.github.com/gists',
 
+	url: function(){
+
+		// this is incredibly hacky
+		// find a sensible way to handle access tokens with backbone
+		var url = ( this.id )
+			? this.urlRoot +'/'+ this.id
+			: this.urlRoot;
+
+		if( terse.user_data.access_token ) url = url +'?access_token='+ terse.user_data.access_token;
+
+		return url;
+
+	},
+
 	defaults: {
 		description: 'A terse gist',
 		'public': true,
@@ -53,7 +67,9 @@ terse.Models.Group = Backbone.Model.extend({
 			for( var filename in clean_save_data.files ){
 				clean_save_data.files[filename] = _(clean_save_data.files[filename]).pick('content');
 			}
-			this.save( clean_save_data, { patch: true } );
+			this.save( clean_save_data, {
+				patch: true
+			});
 		}
 
 	},
