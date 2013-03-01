@@ -130,5 +130,14 @@ router.get( '/', function( req, res ){
 	});
 
 });
+router.get( '/g/:id', function( req, res ){
+
+	res.expose( req.user || {}, 'terse.user_data' );
+	res.expose( req.params || {}, 'terse.request.params' );
+	res.render( 'index.hbs', {
+		user: req.user
+	});
+
+});
 
 router.listen( 8080 );

@@ -5,9 +5,10 @@ terse.Views.Group = Backbone.View.extend({
 
 	initialize: function(){
 
-		_( this ).bindAll( 'renderResult', 'changeHTML', 'changeCSS', 'changeJS' );
+		_( this ).bindAll( 'renderResult', 'updateFiles', 'changeHTML', 'changeCSS', 'changeJS' );
 
 		this.listenTo( this.model, 'update', this.renderResult );
+		this.listenTo( this.model, 'sync', this.updateFiles );
 
 		this.render();
 
@@ -56,9 +57,31 @@ terse.Views.Group = Backbone.View.extend({
 		var html = this.html_editor.getValue();
 		var css = this.css_editor.getValue();
 		var js = this.js_editor.getValue();
-		html = '<head><style>'+ css +'</style><script>'+ js +'</script></head><body>'+ html +'</body>';
+		html = '<head><style>'+ css +'</style></head><body>'+ html +'<script>'+ js +'</script></body>';
+		var result_doc = this.$result_iframe[0].contentDocument;
 
-		this.$result_iframe.contents().find('html').html( html ); 
+		result_doc.open();
+		result_doc.write( html );
+		result_doc.close(); 
+
+	},
+
+	updateFiles: function(){
+
+		var files = this.model.get('files');
+
+		var html = this.html_editor.getValue();
+		var css = this.css_editor.getValue();
+		var js = this.js_editor.getValue();
+		var new_html = ( files['markup.html'] || {} ).content;
+		var new_css = ( files['style.css'] || {} ).content;
+		var new_js = ( files['script.js'] || {} ).content;
+
+		if( new_html && html !== new_html ) this.html_editor.setValue( new_html );
+		if( new_css && css !== new_css ) this.css_editor.setValue( new_css );
+		if( new_js && js !== new_js ) this.js_editor.setValue( new_js );
+
+		this.renderResult();
 
 	},
 
