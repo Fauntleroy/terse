@@ -1,7 +1,7 @@
 terse.Views.Group = Backbone.View.extend({
 
 	el: '#group',
-	template: templates.group,
+	template: terse.templates.group,
 
 	initialize: function(){
 

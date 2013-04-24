@@ -1,6 +1,6 @@
 terse.Views.Toolbar = Backbone.View.extend({
 
-	template: templates.toolbar,
+	template: terse.templates.toolbar,
 
 	events: {
 		'click #update': 'clickUpdate',

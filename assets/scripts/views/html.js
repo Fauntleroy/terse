@@ -1,6 +1,6 @@
 terse.Views.HTML = Backbone.View.extend({
 
-	template: templates.html,
+	template: terse.templates.html,
 
 	initialize: function(){
 

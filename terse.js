@@ -8,7 +8,6 @@ var REDIS_AUTH = process.env.TERSE_REDIS_AUTH;
 var express = require('express');
 var expose = require('express-expose');
 var express_handlebars = require('express3-handlebars');
-var igneous = require('igneous');
 
 var router = express();
 var handlebars = express_handlebars({
@@ -20,53 +19,6 @@ var handlebars = express_handlebars({
 router.engine( 'hbs', handlebars );
 router.set( 'view engine', 'hbs' );
 
-var igneous_middleware = igneous({
-	root: __dirname +'/assets',
-	minify: false,
-	flows: [
-		{
-			route: 'styles/terse.css',
-			type: 'css',
-			base: 'styles',
-			paths: [
-				'vendor/bootstrap',
-				'vendor/font-awesome',
-				'vendor/codemirror',
-				'terse.styl'
-			]
-		},
-		{
-			route: 'scripts/terse.js',
-			type: 'js',
-			base: 'scripts',
-			paths: [
-				'vendor/jquery',
-				'vendor/bootstrap',
-				'vendor/underscore',
-				'vendor/backbone',
-				'vendor/codemirror/codemirror.js',
-				'vendor/codemirror/modes',
-				'vendor/handlebars',
-				'terse.js',
-				'models',
-				'views',
-				'routers',
-				'application.js'
-			]
-		},
-		{
-			route: 'templates/terse.js',
-			type: 'jst',
-			extensions: ['hbs'],
-			jst_lang: 'handlebars',
-			jst_namespace: 'templates',
-			base: 'templates',
-			paths: ['/']
-		}
-	]
-});
-
-router.use( igneous_middleware );
 router.use( express.static( __dirname + '/assets' ) );
 
 //Passport stuff
@@ -108,7 +60,7 @@ passport.use( new GithubStrategy({
 		access_token: access_token,
 		refresh_token: refresh_token
 	};
-console.log(user);
+
 	done( null, user );
 
 }));
