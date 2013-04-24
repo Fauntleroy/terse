@@ -25,7 +25,7 @@ terse.Models.Group = Backbone.Model.extend({
 	parse: function( response ){
 
 		response.gist_id = response.id;
-		
+
 		// ensure we don't try to PATCH anonymous gists
 		if( !terse.user_data.access_token )	response.id = null;
 
@@ -35,7 +35,7 @@ terse.Models.Group = Backbone.Model.extend({
 
 	initialize: function(){
 
-		_( this ).bindAll( 'isAnonymous', 'updateFile', 'updateURL', 'saveFile', 'triggerUpdate' );
+		_( this ).bindAll( 'isAnonymous', 'updateFile', 'updateURL', 'keySave', 'saveFile', 'triggerUpdate' );
 
 		var gist_id = this.get('gist_id');
 
@@ -44,6 +44,7 @@ terse.Models.Group = Backbone.Model.extend({
 		});
 
 		this.on( 'change:gist_id', this.updateURL );
+		jwerty.key( 'ctrl+s/cmd+s', this.keySave );
 
 	},
 
@@ -67,6 +68,14 @@ terse.Models.Group = Backbone.Model.extend({
 	updateURL: function( group, gist_id ){
 
 		terse.routers.application.navigate( '/g/'+ gist_id );
+
+	},
+
+	// save when ctrl+s/cmd+s is pressed
+	keySave: function(){
+
+		this.saveFile();
+		return false;
 
 	},
 

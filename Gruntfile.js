@@ -41,6 +41,7 @@ module.exports = function(grunt) {
 						'assets/scripts/vendor/backbone/**/*.js',
 						'assets/scripts/vendor/codemirror/codemirror.js',
 						'assets/scripts/vendor/codemirror/modes/**/*.js',
+						'assets/scripts/vendor/jwerty/jwerty.js',
 						'assets/scripts/vendor/handlebars/**/*.js',
 						'assets/scripts/terse.js',
 						'assets/compiled/templates.js',
