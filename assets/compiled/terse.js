@@ -23879,6 +23879,11 @@ helpers = helpers || Handlebars.helpers; data = data || {};
 
 	render: function(){
 
+		var editor_defaults = {
+			lineNumbers: true,
+			indentUnit: 4,
+			indentWithTabs: true
+		};
 		var html = this.template( this.model.toJSON() );
 		var $group = $.parseHTML( html );
 		this.$el.html( $group );
@@ -23892,18 +23897,18 @@ helpers = helpers || Handlebars.helpers; data = data || {};
 		this.$result = $('#result');
 		this.$result_iframe = this.$result.find('iframe');
 
-		this.html_editor = CodeMirror.fromTextArea( this.$html_textarea[0], {
-			mode: 'htmlmixed',
-			lineNumbers: true
-		});
-		this.css_editor = CodeMirror.fromTextArea( this.$css_textarea[0], {
-			mode: 'css',
-			lineNumbers: true
-		});
-		this.js_editor = CodeMirror.fromTextArea( this.$js_textarea[0], {
-			mode: 'javascript',
-			lineNumbers: true
-		});
+		this.html_editor = CodeMirror.fromTextArea(
+			this.$html_textarea[0],
+			_({ mode: 'htmlmixed' }).defaults( editor_defaults )
+		);
+		this.css_editor = CodeMirror.fromTextArea(
+			this.$css_textarea[0],
+			_({ mode: 'css' }).defaults( editor_defaults )
+		);
+		this.js_editor = CodeMirror.fromTextArea(
+			this.$js_textarea[0], 
+			_({	mode: 'javascript' }).defaults( editor_defaults )
+		);
 
 		this.html_editor.on( 'change', this.changeHTML );
 		this.css_editor.on( 'change', this.changeCSS );
