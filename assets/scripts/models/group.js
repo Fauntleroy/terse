@@ -24,11 +24,10 @@ terse.Models.Group = Backbone.Model.extend({
 
 	parse: function( response ){
 
+		response.gist_id = response.id;
+		
 		// ensure we don't try to PATCH anonymous gists
-		if( !terse.user_data.access_token ){
-			response.gist_id = response.id;
-			response.id = null;
-		}
+		if( !terse.user_data.access_token )	response.id = null;
 
 		return response;
 
