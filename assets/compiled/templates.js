@@ -7,7 +7,7 @@ helpers = helpers || Handlebars.helpers; data = data || {};
   
 
 
-  return "<div id=\"html\">\r\n	<div class=\"module\">\r\n		<div class=\"toolbar\">\r\n			<h3>HTML</h3>\r\n		</div>\r\n		<textarea></textarea>\r\n	</div>\r\n</div>\r\n<div id=\"css\">\r\n	<div class=\"module\">\r\n		<div class=\"toolbar\">\r\n			<h3>CSS</h3>\r\n		</div>\r\n		<textarea></textarea>\r\n	</div>\r\n</div>\r\n<div id=\"js\">\r\n	<div class=\"module\">\r\n		<div class=\"toolbar\">\r\n			<h3>JS</h3>\r\n		</div>\r\n		<textarea></textarea>\r\n	</div>\r\n</div>\r\n<div id=\"result\">\r\n	<div class=\"module\">\r\n		<div class=\"toolbar\">\r\n			<h3>Result</h3>\r\n		</div>\r\n		<iframe></iframe>\r\n	</div>\r\n</div>";
+  return "<div id=\"files\">\r\n	<ul class=\"nav nav-tabs\">\r\n		<li class=\"active\"><a href=\"#html\">HTML</a></li>\r\n		<li><a href=\"#css\">CSS</a></li>\r\n		<li><a href=\"#js\">JS</a></li>\r\n	</ul>\r\n	<div class=\"tab-content\">\r\n		<div id=\"html\" class=\"tab-pane active\">\r\n			<textarea></textarea>\r\n		</div>\r\n		<div id=\"css\" class=\"tab-pane\">\r\n			<textarea></textarea>\r\n		</div>\r\n		<div id=\"js\" class=\"tab-pane\">\r\n			<textarea></textarea>\r\n		</div>\r\n	</div>\r\n</div>\r\n<div id=\"result\">\r\n	<iframe></iframe>\r\n</div>";
   });
 
 this["terse"]["templates"]["toolbar"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {

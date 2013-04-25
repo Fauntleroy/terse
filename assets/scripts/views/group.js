@@ -3,6 +3,10 @@ terse.Views.Group = Backbone.View.extend({
 	el: '#group',
 	template: terse.templates.group,
 
+	events: {
+		'click ul.nav-tabs li a': 'clickTab'
+	},
+
 	initialize: function(){
 
 		_( this ).bindAll( 'renderResult', 'updateFiles', 'changeHTML', 'changeCSS', 'changeJS' );
@@ -111,6 +115,17 @@ terse.Views.Group = Backbone.View.extend({
 		var content = this.js_editor.getValue();
 
 		this.model.updateFile( 'script.js', content );
+
+	},
+
+	clickTab: function( e ){
+
+		e.preventDefault();
+		$(e.target).tab('show');
+		// hack to fix editors that are always collapsed on load
+		this.html_editor.refresh();
+		this.css_editor.refresh();
+		this.js_editor.refresh();
 
 	}
 
