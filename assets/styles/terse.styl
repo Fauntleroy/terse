@@ -32,7 +32,7 @@ body {
 #application {
 
 	position: absolute;
-	top: 30px;
+	top: 38px;
 	right: 0;
 	bottom: 0;
 	left: 0;
@@ -83,96 +83,39 @@ body {
 
 }
 
-#html,
-#css,
-#js,
+div.CodeMirror {
+
+	position: absolute;
+	top: 43px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: auto;
+	background: rgb( 255, 255, 255 );
+	cursor: text;
+
+}
+
+#files {
+
+	position: absolute;
+	top: 0;
+	right: 50%;
+	bottom: 0;
+	left: 0;
+	padding-top: 5px;
+	background: #fcfcfc;
+
+}
+
 #result {
 
 	position: absolute;
 	top: 0;
 	right: 0;
 	bottom: 0;
-	left: 0;
-
-	div.module {
-
-		position: absolute;
-		top: 3px;
-		right: 3px;
-		bottom: 3px;
-		left: 3px;
-		box-shadow: 0 3px 4px rgba( 0, 0, 0, 0.05 );
-
-		div.toolbar {
-
-			height: 23px;
-			padding: 0 10px;
-			border-top: rgb( 255, 255, 255 ) 1px solid;
-			border-bottom: rgb( 230, 230, 230 ) 1px solid;
-			background: #f7f7f7;
-
-		}
-
-		h3 {
-
-			margin: 0;
-			font-size: 11px;
-			line-height: 25px;
-			text-transform: uppercase;
-
-		}
-
-	}
-
-	div.CodeMirror {
-
-		position: absolute;
-		top: 25px;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		height: auto;
-		background: rgb( 255, 255, 255 );
-		cursor: text;
-
-	}
-
-}
-
-#html {
-
-	right: 50%;
-	bottom: 50%;
-
-	div.module { left: 6px; }
-
-}
-
-#css {
-
 	left: 50%;
-	bottom: 50%;
-
-	div.module { right: 6px; }
-
-}
-
-#js {
-
-	top: 50%;
-	right: 50%;
-
-	div.module {
-		bottom: 6px;
-		left: 6px;
-	}
-
-}
-
-#result {
-
-	top: 50%;
-	left: 50%;
+	margin-left: 5px;
 
 	div.module {
 		right: 6px;
