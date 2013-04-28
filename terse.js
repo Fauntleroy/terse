@@ -3,9 +3,9 @@ var VERSION = require('./package.json').version;
 var GITHUB_APP_ID = process.env.TERSE_GITHUB_APP_ID;
 var GITHUB_APP_SECRET = process.env.TERSE_GITHUB_APP_SECRET;
 var URL = process.env.TERSE_URL || 'http://terse.jit.su';
-var REDIS_PORT = parseInt( process.env.TERSE_REDIS_PORT, 10 ) || 6379;
-var REDIS_HOST = process.env.TERSE_REDIS_HOST || '127.0.0.1';
-var REDIS_AUTH = process.env.TERSE_REDIS_AUTH;
+var REDIS_HOST = process.env.TERSE_REDIS_HOST || 'localhost';
+var REDIS_PORT = process.env.TERSE_REDIS_PORT || '6379';
+var REDIS_PASS = process.env.TERSE_REDIS_PASS;
 var HTTP_PORT = process.env.TERSE_HTTP_PORT || 8080;
 var USER_AGENT = 'Terse/'+ VERSION;
 
@@ -19,6 +19,10 @@ var handlebars = express_handlebars({
 	defaultLayout: 'layout',
 	layoutsDir: 'views'
 });
+var redis = require('redis');
+var redis_client = redis.createClient( REDIS_PORT, REDIS_HOST );
+if( REDIS_PASS ) redis_client.auth( REDIS_PASS );
+var RedisStore = require('connect-redis')( express );
 
 router.engine( 'hbs', handlebars );
 router.set( 'view engine', 'hbs' );
@@ -26,7 +30,10 @@ router.use( express.static( __dirname + '/assets' ) );
 router.use( express.cookieParser() );
 router.use( express.bodyParser() );
 router.use( express.session({
-	secret: 'terseness is tersy'
+	secret: 'terseness is tersy',
+	store: new RedisStore({
+		client: redis_client
+	})
 }) );
 
 router.configure( 'development', function(){
