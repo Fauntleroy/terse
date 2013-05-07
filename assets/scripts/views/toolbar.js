@@ -46,7 +46,7 @@ terse.Views.Toolbar = Backbone.View.extend({
 
 		e.preventDefault();
 
-		this.model.saveFile();
+		this.model.save();
 
 	}
 
