@@ -22,20 +22,9 @@ terse.Models.Group = Backbone.Model.extend({
 		files: {}
 	},
 
-	parse: function( response ){
-
-		response.gist_id = response.id;
-
-		// ensure we don't try to PATCH anonymous gists
-		if( !terse.user_data.access_token )	response.id = null;
-
-		return response;
-
-	},
-
 	initialize: function(){
 
-		_( this ).bindAll( 'isAnonymous', 'updateFile', 'updateURL', 'keySave', 'saveFile', 'triggerUpdate' );
+		_( this ).bindAll( 'isAnonymous', 'isOwnedBy', 'updateFile', 'updateURL', 'keySave', 'saveFile', 'triggerUpdate' );
 
 		var gist_id = this.get('gist_id');
 
@@ -48,6 +37,14 @@ terse.Models.Group = Backbone.Model.extend({
 
 	},
 
+	// does the specified user own this
+	isOwnedBy: function( user ){
+
+		return this.get('user').login === user;
+
+	},
+
+	// does this Gist have an owner
 	isAnonymous: function(){
 
 		if( this.isNew() ) return false;
@@ -79,19 +76,24 @@ terse.Models.Group = Backbone.Model.extend({
 
 	},
 
+	// save the gist
 	saveFile: function(){
 
-		if( this.isNew() || this.isAnonymous() ){
-			this.save();
-		}
-		else {
-			var clean_save_data = _(this.toJSON()).pick( 'description', 'files' );
-			for( var filename in clean_save_data.files ){
-				clean_save_data.files[filename] = _(clean_save_data.files[filename]).pick('content');
+		// PATCH when owned by user and has an ID
+		if( this.isOwnedBy( terse.user_data.username ) && this.id ){
+			var gist_data = this.toJSON();
+			var new_gist_data = _( gist_data ).pick( 'description', 'files' );
+			for( var filename in new_gist_data.files ){
+				new_gist_data.files[filename] = _(new_gist_data.files[filename]).pick('content');
 			}
-			this.save( clean_save_data, {
+			this.save( new_gist_data, {
 				patch: true
 			});
+		}
+		// else POST
+		else {
+			this.id = null; // hack. Forces Backbone to POST
+			this.save();
 		}
 
 	},
