@@ -7,7 +7,7 @@ terse.Routers.Application = Backbone.Router.extend({
 
 	home: function( id ){
 
-		terse.group = new terse.Models.Group({ gist_id: id });
+		terse.group = new terse.Models.Group({ id: id });
 
 		terse.views.group = terse.views.group || new terse.Views.Group({ model: terse.group });
 		terse.views.toolbar = terse.views.toolbar || new terse.Views.Toolbar({ model: terse.group });
