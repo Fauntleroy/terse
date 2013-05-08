@@ -10,9 +10,9 @@ terse.Views.Toolbar = Backbone.View.extend({
 
 	initialize: function(){
 
-		_(this).bindAll( 'renderURL', 'clickUpdate', 'clickSave' );
+		_(this).bindAll( 'render', 'renderURL', 'clickUpdate', 'clickSave' );
 
-		this.listenTo( this.model, 'change:html_url', this.renderURL );
+		this.listenTo( this.model, 'change:html_url sync', this.render );
 
 		this.render();
 
@@ -20,7 +20,9 @@ terse.Views.Toolbar = Backbone.View.extend({
 
 	render: function(){
 
-		var html = this.template( this.model.toJSON() );
+		var gist_data = this.model.toJSON();
+		gist_data.forkable = this.model.isForkable(); // for the save/fork button
+		var html = this.template( gist_data );
 		var $toolbar = $.parseHTML( html );
 		this.$el.html( $toolbar );
 

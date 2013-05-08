@@ -27,7 +27,7 @@ terse.Models.Group = Backbone.Model.extend({
 
 	initialize: function(){
 
-		_( this ).bindAll( 'isAnonymous', 'isOwnedBy', 'updateFile', 'updateURL', 'keySave', 'save', 'fork', 'triggerUpdate' );
+		_( this ).bindAll( 'isAnonymous', 'isOwnedBy', 'isForkable', 'updateFile', 'updateURL', 'keySave', 'save', 'fork', 'triggerUpdate' );
 
 		if( this.id ) this.fetch();
 
@@ -40,14 +40,21 @@ terse.Models.Group = Backbone.Model.extend({
 	isOwnedBy: function( user ){
 
 		var gist_user = this.get('user') || {};
-		return ( gist_user.login === user );
+		return ( gist_user.login === user && !!gist_user.login );
 
 	},
 
 	// does this Gist have an owner
 	isAnonymous: function(){
 
-		return ( !this.isNew() && !this.get('user') );
+		return ( this.id && !this.get('user') );
+
+	},
+
+	// can this Gist be forked?
+	isForkable: function(){
+
+		return ( !!this.id && !!terse.user_data.username && !this.isOwnedBy( terse.user_data.username ) );
 
 	},
 
@@ -90,7 +97,7 @@ terse.Models.Group = Backbone.Model.extend({
 			});
 		}
 		// Fork when not anonymous and not new
-		else if( !this.isAnonymous() && this.id && terse.user_data.username ){
+		else if( this.isForkable() ){
 			this.fork();
 		}
 		// else POST
