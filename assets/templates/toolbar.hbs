@@ -1,17 +1,21 @@
-<ul>
-	<li class="link">
-		<a id="link" href="#" target="_blank"></a>
-	</li>
-	<li class="update">
-		<button id="update" type="button" class="btn btn-mini">Update <i class="icon-refresh"></i></button>
-	</li>
-	{{#if forkable}}
-	<li class="fork">
-		<button id="save" type="button" class="btn btn-primary btn-mini">Fork <i class="icon-copy"></i></button>
-	</li>
-	{{else}}
-	<li class="save">
-		<button id="save" type="button" class="btn btn-primary btn-mini">Save <i class="icon-save"></i></button>
-	</li>
-	{{/if}}
-</ul>
+<div id="toolbar" class="nav pull-right">
+	<ul>
+		{{#if html_url}}
+		<li class="link">
+			<a id="link" href="{{html_url}}" target="_blank">{{html_url}}</a>
+		</li>
+		{{/if}}
+		<li class="update">
+			<button id="update" type="button" class="btn btn-mini">Update <i class="icon-refresh"></i></button>
+		</li>
+		{{#if forkable}}
+		<li class="fork">
+			<button id="save" type="button" class="btn btn-primary btn-mini">Fork <i class="icon-copy"></i></button>
+		</li>
+		{{else}}
+		<li class="save">
+			<button id="save" type="button" class="btn btn-primary btn-mini">Save <i class="icon-save"></i></button>
+		</li>
+		{{/if}}
+	</ul>
+</div>

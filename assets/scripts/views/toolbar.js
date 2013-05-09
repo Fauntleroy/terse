@@ -1,6 +1,5 @@
 terse.Views.Toolbar = Backbone.View.extend({
 
-	el: '#toolbar',
 	template: terse.templates.toolbar,
 
 	events: {
@@ -10,11 +9,11 @@ terse.Views.Toolbar = Backbone.View.extend({
 
 	initialize: function(){
 
-		_(this).bindAll( 'render', 'renderURL', 'clickUpdate', 'clickSave' );
+		_(this).bindAll( 'clickUpdate', 'clickSave', 'disableSave', 'enableSave' );
 
 		this.listenTo( this.model, 'change:html_url sync', this.render );
-
-		this.render();
+		this.listenTo( this.model, 'request', this.disableSave );
+		this.listenTo( this.model, 'sync', this.enableSave );
 
 	},
 
@@ -24,15 +23,13 @@ terse.Views.Toolbar = Backbone.View.extend({
 		gist_data.forkable = this.model.isForkable(); // for the save/fork button
 		var html = this.template( gist_data );
 		var $toolbar = $.parseHTML( html );
-		this.$el.html( $toolbar );
+		this.$el.replaceWith( $toolbar );
+		this.setElement( $toolbar );
 
-		this.$gist_link = $('#link');
+		this.$gist_link = this.$el.find('#link');
+		this.$save = this.$el.find('#save');
 
-	},
-
-	renderURL: function( group, url ){
-
-		this.$gist_link.attr( 'href', url ).text( url );
+		return this;
 
 	},
 
@@ -49,6 +46,20 @@ terse.Views.Toolbar = Backbone.View.extend({
 		e.preventDefault();
 
 		this.model.save();
+
+	},
+
+	// disable the save/fork button
+	disableSave: function(){
+
+		this.$save.prop( 'disabled', true );
+
+	},
+
+	// enable the save/fork button
+	enableSave: function(){
+
+		this.$save.prop( 'disabled', false );
 
 	}
 

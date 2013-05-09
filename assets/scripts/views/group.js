@@ -1,6 +1,5 @@
 terse.Views.Group = Backbone.View.extend({
 
-	el: '#group',
 	template: terse.templates.group,
 
 	events: {
@@ -9,9 +8,7 @@ terse.Views.Group = Backbone.View.extend({
 
 	initialize: function(){
 
-		_( this ).bindAll( 'render' );
-
-		this.render();
+		_( this ).bindAll( 'render', 'destroy' );
 
 	},
 
@@ -21,6 +18,24 @@ terse.Views.Group = Backbone.View.extend({
 		var $group = $.parseHTML( html );
 		this.$el.replaceWith( $group );
 		this.setElement( $group );
+
+		this.$toolbar = this.$el.find('#toolbar');
+		this.$html = this.$el.find('#html');
+		this.$css = this.$el.find('#css');
+		this.$js = this.$el.find('#js');
+		this.$result = this.$el.find('#result');
+
+		this.toolbar = new terse.Views.Toolbar({ model: this.model });
+		this.html = new terse.Views.HTML({ model: this.model });
+		this.css = new terse.Views.CSS({ model: this.model });
+		this.js = new terse.Views.JS({ model: this.model });
+		this.result = new terse.Views.Result({ model: this.model });
+
+		this.$toolbar.replaceWith( this.toolbar.render().$el );
+		this.$html.replaceWith( this.html.render().$el );
+		this.$css.replaceWith( this.css.render().$el );
+		this.$js.replaceWith( this.js.render().$el );
+		this.$result.replaceWith( this.result.render().$el );
 
 		return this;
 
@@ -32,9 +47,22 @@ terse.Views.Group = Backbone.View.extend({
 		e.preventDefault();
 		$(e.target).tab('show');
 		// hack to fix editors that are always collapsed on load
-		terse.views.html.editor.refresh();
-		terse.views.css.editor.refresh();
-		terse.views.js.editor.refresh();
+		this.html.editor.refresh();
+		this.css.editor.refresh();
+		this.js.editor.refresh();
+
+	},
+
+	// Completely remove this view and its children
+	// geez... that sounds cruel
+	destroy: function(){
+
+		this.toolbar.remove();
+		this.html.remove();
+		this.css.remove();
+		this.js.remove();
+		//this.result.remove();
+		this.remove();
 
 	}
 

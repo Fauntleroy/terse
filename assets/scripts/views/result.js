@@ -1,13 +1,10 @@
 terse.Views.Result = Backbone.View.extend({
 
-	el: '#result',
 	template: terse.templates.result,
 
 	initialize: function(){
 
 		_( this ).bindAll( 'render', 'update' );
-
-		this.render();
 
 		this.listenTo( this.model, 'update sync', this.update );
 
@@ -21,8 +18,6 @@ terse.Views.Result = Backbone.View.extend({
 		this.setElement( $html );
 
 		this.$iframe = this.$el.find('iframe');
-
-		this.update();
 
 		return this;
 

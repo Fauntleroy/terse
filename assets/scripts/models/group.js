@@ -112,9 +112,12 @@ terse.Models.Group = Backbone.Model.extend({
 
 		var gist = this;
 		var fork_url = this.url({ fork: true });
-		$.post( fork_url, function( data, status, xhr ){
-			gist.set( data );
+		var xhr = $.post( fork_url, function( data, status, xhr ){
+			terse.routers.application.navigate( '/g/'+ data.id, {
+				trigger: true
+			});
 		}, 'json' );
+		gist.trigger( 'request', gist, xhr, {} );
 
 	},
 

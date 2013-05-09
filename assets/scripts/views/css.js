@@ -1,16 +1,12 @@
 terse.Views.CSS = Backbone.View.extend({
 
-	el: '#css',
 	template: terse.templates.css,
 
 	initialize: function(){
 
 		_( this ).bindAll( 'render', 'updateModel', 'updateEditor' );
 
-		this.render();
-
 		this.listenTo( this.model, 'sync', this.updateEditor );
-		this.editor.on( 'change', this.updateModel );
 
 	},
 
@@ -30,6 +26,8 @@ terse.Views.CSS = Backbone.View.extend({
 		this.$textarea = this.$el.find('textarea');
 
 		this.editor = CodeMirror.fromTextArea( this.$textarea[0], editor_defaults );
+
+		this.editor.on( 'change', this.updateModel );
 
 		return this;
 
