@@ -19,18 +19,21 @@ terse.Views.Group = Backbone.View.extend({
 		this.$el.replaceWith( $group );
 		this.setElement( $group );
 
-		this.$toolbar = this.$el.find('#toolbar');
-		this.$html = this.$el.find('#html');
-		this.$css = this.$el.find('#css');
-		this.$js = this.$el.find('#js');
-		this.$result = this.$el.find('#result');
+		this.$metadata = this.$('#metadata');
+		this.$toolbar = this.$('#toolbar');
+		this.$html = this.$('#html');
+		this.$css = this.$('#css');
+		this.$js = this.$('#js');
+		this.$result = this.$('#result');
 
+		this.metadata = new terse.Views.Metadata({ model: this.model });
 		this.toolbar = new terse.Views.Toolbar({ model: this.model });
 		this.html = new terse.Views.HTML({ model: this.model });
 		this.css = new terse.Views.CSS({ model: this.model });
 		this.js = new terse.Views.JS({ model: this.model });
 		this.result = new terse.Views.Result({ model: this.model });
 
+		this.$metadata.replaceWith( this.metadata.render().$el );
 		this.$toolbar.replaceWith( this.toolbar.render().$el );
 		this.$html.replaceWith( this.html.render().$el );
 		this.$css.replaceWith( this.css.render().$el );

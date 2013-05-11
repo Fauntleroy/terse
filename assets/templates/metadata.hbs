@@ -1,0 +1,20 @@
+<div id="metadata">
+	<form>
+		<input name="description" type="text" value="{{description}}" />
+	<form>
+	{{#user}}
+	<span class="user">
+		<a href="{{html_url}}" target="_blank"><img  class="avatar" src="{{avatar_url}}" /> {{login}}</a>
+	</span>
+	{{/user}}
+	{{#if html_url}}
+	<span class="link">
+		<a id="link" href="{{html_url}}" target="_blank">{{html_url}} <i class="icon-external-link"></i></a>
+	</span>
+	{{/if}}
+	{{#if comments_url}}
+	<span class="comments">
+		<a id="comments" href="{{html_url}}#comments" target="_blank">Comments ({{comments}}) <i class="icon-comment-alt"></i></a>
+	</span>
+	{{/if}}
+</div>
