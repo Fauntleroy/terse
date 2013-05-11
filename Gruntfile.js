@@ -8,6 +8,7 @@ module.exports = function(grunt) {
 			compile: {
 				files: {
 					'assets/compiled/styles.css': [
+						'assets/styles/vendor/reset.css',
 						'assets/styles/terse.styl'
 					]
 				}
@@ -36,7 +37,6 @@ module.exports = function(grunt) {
 				files: {
 					'assets/compiled/terse.js': [
 						'assets/scripts/vendor/jquery/**/*.js',
-						'assets/scripts/vendor/bootstrap/**/*.js',
 						'assets/scripts/vendor/underscore/**/*.js',
 						'assets/scripts/vendor/backbone/**/*.js',
 						'assets/scripts/vendor/codemirror/codemirror.js',
@@ -58,7 +58,6 @@ module.exports = function(grunt) {
 				},
 				files: {
 					'assets/compiled/styles.css': [
-						'assets/styles/vendor/bootstrap/**/*',
 						'assets/styles/vendor/font-awesome/**/*',
 						'assets/styles/vendor/codemirror/**/*',
 						'assets/compiled/styles.css'

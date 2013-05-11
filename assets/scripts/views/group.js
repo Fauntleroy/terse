@@ -19,13 +19,6 @@ terse.Views.Group = Backbone.View.extend({
 		this.$el.replaceWith( $group );
 		this.setElement( $group );
 
-		this.$metadata = this.$('#metadata');
-		this.$toolbar = this.$('#toolbar');
-		this.$html = this.$('#html');
-		this.$css = this.$('#css');
-		this.$js = this.$('#js');
-		this.$result = this.$('#result');
-
 		this.metadata = new terse.Views.Metadata({ model: this.model });
 		this.toolbar = new terse.Views.Toolbar({ model: this.model });
 		this.html = new terse.Views.HTML({ model: this.model });
@@ -33,12 +26,16 @@ terse.Views.Group = Backbone.View.extend({
 		this.js = new terse.Views.JS({ model: this.model });
 		this.result = new terse.Views.Result({ model: this.model });
 
-		this.$metadata.replaceWith( this.metadata.render().$el );
-		this.$toolbar.replaceWith( this.toolbar.render().$el );
-		this.$html.replaceWith( this.html.render().$el );
-		this.$css.replaceWith( this.css.render().$el );
-		this.$js.replaceWith( this.js.render().$el );
-		this.$result.replaceWith( this.result.render().$el );
+		this.$metadata = this.$('#metadata').replaceWith( this.metadata.render().$el );
+		this.$toolbar = this.$('#toolbar').replaceWith( this.toolbar.render().$el );
+		this.$html = this.$('#html').replaceWith( this.html.render().$el );
+		this.$css = this.$('#css').replaceWith( this.css.render().$el );
+		this.$js = this.$('#js').replaceWith( this.js.render().$el );
+		this.$result = this.$('#result').replaceWith( this.result.render().$el );
+
+		this.html.show();
+		this.css.hide();
+		this.js.hide();
 
 		return this;
 
@@ -48,11 +45,14 @@ terse.Views.Group = Backbone.View.extend({
 	clickTab: function( e ){
 
 		e.preventDefault();
-		$(e.target).tab('show');
-		// hack to fix editors that are always collapsed on load
-		this.html.editor.refresh();
-		this.css.editor.refresh();
-		this.js.editor.refresh();
+		var $tab = $(e.target);
+		var tab = $tab.attr('href').slice(1);
+		var view = this[tab];
+
+		this.html.hide();
+		this.css.hide();
+		this.js.hide();
+		view.show();
 
 	},
 

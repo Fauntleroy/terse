@@ -4,7 +4,7 @@ terse.Views.CSS = Backbone.View.extend({
 
 	initialize: function(){
 
-		_( this ).bindAll( 'render', 'updateModel', 'updateEditor' );
+		_( this ).bindAll( 'render', 'show', 'hide', 'updateModel', 'updateEditor' );
 
 		this.listenTo( this.model, 'sync', this.updateEditor );
 
@@ -30,6 +30,21 @@ terse.Views.CSS = Backbone.View.extend({
 		this.editor.on( 'change', this.updateModel );
 
 		return this;
+
+	},
+
+	// show the view
+	show: function(){
+
+		this.$el.show();
+		this.editor.refresh();
+
+	},
+
+	// hide the view
+	hide: function(){
+
+		this.$el.hide();
 
 	},
 
