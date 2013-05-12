@@ -10,6 +10,7 @@ terse.Views.Group = Backbone.View.extend({
 
 	render: function(){
 
+		var group_view = this;
 		var html = this.template( this.model.toJSON() );
 		var $group = $.parseHTML( html );
 		this.$el.replaceWith( $group );
@@ -33,6 +34,12 @@ terse.Views.Group = Backbone.View.extend({
 			activate: this.refreshTab
 		});
 
+		// Force the HTML editor to refresh just after render
+		setTimeout( function(){
+			group_view.html.editor.refresh();
+			group_view.html.editor.focus();
+		}, 25 );
+
 		return this;
 
 	},
@@ -42,6 +49,7 @@ terse.Views.Group = Backbone.View.extend({
 
 		var tab = ui.newPanel.attr('id');
 		this[tab].editor.refresh();
+		this[tab].editor.focus();
 
 	},
 
