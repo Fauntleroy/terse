@@ -41,7 +41,8 @@ terse.Models.Group = Backbone.Model.extend({
 		files: {},
 		user: {
 			avatar_url: terse.user_data.avatar || ANONYMOUS_USER_AVATAR,
-			login: terse.user_data.username || ANONYMOUS_USER_LOGIN
+			login: terse.user_data.username || ANONYMOUS_USER_LOGIN,
+			html_url: terse.user_data.profile
 		}
 	},
 
