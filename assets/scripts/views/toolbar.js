@@ -5,6 +5,7 @@ terse.Views.Toolbar = Backbone.View.extend({
 	events: {
 		'click #update': 'clickUpdate',
 		'click #save': 'clickSave',
+		'click #delete': 'clickDelete',
 		'click #privacy': 'clickPrivacy'
 	},
 
@@ -22,6 +23,7 @@ terse.Views.Toolbar = Backbone.View.extend({
 
 		var gist_data = this.model.toJSON();
 		gist_data.forkable = this.model.isForkable(); // for the save/fork button
+		gist_data.deletable = this.model.isOwnedBy( terse.user_data.username ) && this.model.id; // for the delete button
 		var html = this.template( gist_data );
 		var $toolbar = $.parseHTML( html );
 		this.$el.replaceWith( $toolbar );
@@ -47,6 +49,16 @@ terse.Views.Toolbar = Backbone.View.extend({
 		e.preventDefault();
 
 		this.model.save();
+
+	},
+
+	clickDelete: function( e ){
+
+		e.preventDefault();
+
+		var result = confirm('Are you sure you want to delete this Gist? This cannot be undone.');
+
+		if( result ) this.model.destroy();
 
 	},
 

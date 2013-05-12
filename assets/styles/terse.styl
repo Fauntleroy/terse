@@ -88,7 +88,6 @@ input[type=submit].btn {
 
 	&.primary {
 
-		color: rgb( 255, 255, 255 );
 		background: rgb( 110, 207, 192 );
 		border-color: rgb( 110, 207, 192 );
 
@@ -103,7 +102,6 @@ input[type=submit].btn {
 
 	&.secondary {
 
-		color: rgb( 255, 255, 255 );
 		background: rgb( 85, 160, 255 );
 		border-color: rgb( 85, 160, 255 );
 
@@ -116,7 +114,23 @@ input[type=submit].btn {
 
 	}
 
-	&.primary, &.secondary {
+	&.destructive {
+
+		background: rgb( 215, 55, 40 );
+		border-color: rgb( 215, 55, 40 );
+
+		&:hover {
+
+			background: rgb( 175, 40, 20 );
+			border-color: rgb( 175, 55, 40 );
+
+		}
+
+	}
+
+	&.primary, &.secondary, &.destructive {
+
+		color: rgb( 255, 255, 255 );
 
 		span.separator {
 

@@ -7,6 +7,7 @@ var REDIS_HOST = process.env.TERSE_REDIS_HOST || 'localhost';
 var REDIS_PORT = process.env.TERSE_REDIS_PORT || '6379';
 var REDIS_PASS = process.env.TERSE_REDIS_PASS;
 var HTTP_PORT = process.env.TERSE_HTTP_PORT || 8080;
+var DEFAULT_GIST_ID = process.env.DEFAULT_GIST_ID || 5565184;
 var USER_AGENT = 'Terse/'+ VERSION;
 
 // Configure the web server
@@ -83,6 +84,12 @@ passport.use( new GithubStrategy({
 
 // Routes
 router.get( '/', function( req, res ){
+
+	res.redirect( '/g/'+ DEFAULT_GIST_ID );
+
+});
+
+router.get( '/new', function( req, res ){
 
 	res.expose( req.user || {}, 'terse.user_data' );
 	res.render( 'index.hbs', {

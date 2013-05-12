@@ -24,5 +24,10 @@
 			<button id="save" type="button" class="btn secondary">Save <i class="icon-save"></i></button>
 		</li>
 		{{/if}}
+		{{#if deletable}}
+		<li class="delete">
+			<button id="delete" type="button" class="btn destructive">Delete <i class="icon-remove"></i></button>
+		</li>
+		{{/if}}
 	</ul>
 </div>

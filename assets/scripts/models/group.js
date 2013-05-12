@@ -48,11 +48,12 @@ terse.Models.Group = Backbone.Model.extend({
 
 	initialize: function(){
 
-		_( this ).bindAll( 'isAnonymous', 'isOwnedBy', 'isForkable', 'updateFile', 'updateURL', 'keySave', 'save', 'fork', 'triggerUpdate' );
+		_( this ).bindAll( 'isAnonymous', 'isOwnedBy', 'isForkable', 'updateFile', 'updateURL', 'keySave', 'save', 'fork', 'triggerUpdate', 'postDestroy' );
 
 		if( this.id ) this.fetch();
 
 		this.on( 'change:id', this.updateURL );
+		this.on( 'destroy', this.postDestroy );
 		jwerty.key( 'ctrl+s/cmd+s', this.keySave );
 
 	},
@@ -147,5 +148,13 @@ terse.Models.Group = Backbone.Model.extend({
 		this.trigger('update');
 
 	},
+
+	postDestroy: function(){
+
+		terse.routers.application.navigate( '/new', {
+			trigger: true
+		});
+
+	}
 
 });

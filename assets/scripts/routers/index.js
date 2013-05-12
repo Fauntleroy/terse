@@ -2,7 +2,8 @@ terse.Routers.Application = Backbone.Router.extend({
 
 	routes: {
 		'': 'home',
-		'g/:id': 'home'
+		'g/:id': 'home',
+		'new': 'home'
 	},
 
 	home: function( id ){
