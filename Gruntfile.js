@@ -37,6 +37,7 @@ module.exports = function(grunt) {
 				files: {
 					'assets/compiled/terse.js': [
 						'assets/scripts/vendor/jquery/**/*.js',
+						'assets/scripts/vendor/jqueryui/**/*.js',
 						'assets/scripts/vendor/underscore/**/*.js',
 						'assets/scripts/vendor/backbone/**/*.js',
 						'assets/scripts/vendor/codemirror/codemirror.js',
@@ -44,6 +45,7 @@ module.exports = function(grunt) {
 						'assets/scripts/vendor/jwerty/jwerty.js',
 						'assets/scripts/vendor/handlebars/**/*.js',
 						'assets/scripts/terse.js',
+						'assets/scripts/header.js',
 						'assets/compiled/templates.js',
 						'assets/scripts/models/**/*.js',
 						'assets/scripts/views/**/*.js',

@@ -1,15 +1,27 @@
 <div id="toolbar" class="nav pull-right">
 	<ul>
-		<li class="update">
-			<button id="update" type="button" class="btn btn-mini">Update <i class="icon-refresh"></i></button>
+		<li class="options">
+			<button id="options" type="button" class="btn light">Options <i class="icon-cog"></i></button>
 		</li>
+		<li class="privacy">
+			<button id="privacy" type="button" class="btn light">{{#public}}Public <i class="icon-eye-open"></i>{{/public}}{{^public}}Private <i class="icon-eye-close"></i>{{/public}}</button>
+		</li>
+		<li class="update">
+			<button id="update" type="button" class="btn">Update <i class="icon-refresh"></i></button>
+		</li>
+		{{#if comments_url}}
+		<li class="comments">
+			<a id="comments" class="btn" href="{{html_url}}#comments" target="_blank">
+				Comments<i class="icon-comment-alt"></i><span class="separator"></span><span class="info">{{comments}}</span></a>
+		</li>
+		{{/if}}
 		{{#if forkable}}
 		<li class="fork">
-			<button id="save" type="button" class="btn btn-primary btn-mini">Fork <i class="icon-copy"></i></button>
+			<button id="save" type="button" class="btn secondary">Fork <i class="icon-code-fork"></i><span class="separator"></span><span class="info">{{forks.length}}</span></button>
 		</li>
 		{{else}}
 		<li class="save">
-			<button id="save" type="button" class="btn btn-primary btn-mini">Save <i class="icon-save"></i></button>
+			<button id="save" type="button" class="btn secondary">Save <i class="icon-save"></i></button>
 		</li>
 		{{/if}}
 	</ul>

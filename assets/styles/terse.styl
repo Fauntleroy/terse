@@ -2,6 +2,27 @@ body {
 
 	background: #F2F2F2;
 	overflow: hidden;
+	font-family: 'Roboto', sans-serif;
+	font-size: 13px;
+
+}
+
+a {
+
+	color: rgb( 85, 160, 255 );
+	text-decoration: none;
+
+	&:hover {
+
+		color: rgb( 65, 120, 185 );
+
+	}
+
+}
+
+header {
+
+	padding: 6px 10px;
 
 }
 
@@ -18,11 +39,180 @@ body {
 
 }
 
+a.btn,
+button.btn,
+input[type=submit].btn {
+
+	display: inline-block;
+	border: rgb( 85, 160, 255 ) 1px solid;
+	border-radius: 3px;
+	margin: 0 2px;
+	padding: 4px 9px 5px 9px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 13px;
+	font-weight: 700;
+	line-height: 13px;
+	color: rgb( 85, 160, 255 );
+	background: transparent;
+	cursor: pointer;
+	transition: all 75ms ease-in;
+
+	&:hover {
+
+		color: rgb( 63, 137, 231 );
+		border-color: rgb( 63, 137, 231 );
+
+	}
+
+	&.light {
+
+		padding-left: 5px;
+		padding-right: 5px;
+		border-color: transparent;
+
+	}
+
+	&.primary {
+
+		color: rgb( 255, 255, 255 );
+		background: rgb( 110, 207, 192 );
+		border-color: rgb( 110, 207, 192 );
+
+		&:hover {
+
+			background: rgb( 87, 190, 174 );
+			border-color: rgb( 87, 190, 174 );
+
+		}
+
+	}
+
+	&.secondary {
+
+		color: rgb( 255, 255, 255 );
+		background: rgb( 85, 160, 255 );
+		border-color: rgb( 85, 160, 255 );
+
+		&:hover {
+
+			background: rgb( 63, 137, 231 );
+			border-color: rgb( 63, 137, 231 );
+
+		}
+
+	}
+
+	&.primary, &.secondary {
+
+		span.separator {
+
+			border-color: rgba( 255, 255, 255, 0.25 );
+
+		}
+
+	}
+
+	i {
+
+		display: inline-block;
+		margin-left: 5px;
+
+	}
+
+	span.separator {
+
+		margin: -4px 7px -5px 7px;
+		border-right: rgba( 85, 160, 255, 0.25 ) 1px solid;
+
+	}
+
+	span.info {
+
+		font-weight: normal;
+
+	}
+
+}
+
 ul.nav-tabs {
+
+	border-bottom: rgb( 230, 230, 230 ) 1px solid;
 
 	> li {
 
 		display: inline-block;
+		border: rgb( 230, 230, 230 ) 1px solid;
+		border-bottom: none;
+		border-radius: 3px 3px 0px 0px;
+
+		&.ui-tabs-active {
+
+			font-weight: bold;
+
+			a {
+
+				color: rgb( 0, 0, 0 );
+
+			}
+
+		}
+
+		a {
+
+			display: inline-block;
+			padding: 6px 9px 5px 9px;
+			outline: none;
+
+		}
+
+	}
+
+}
+
+div.dropdown {
+
+	position: relative;
+
+	ul.items {
+
+		display: none;
+		position: absolute;
+		z-index: 999999;
+		width: 125px;
+		margin-top: 5px;
+		background: rgb( 255, 255, 255 );
+		box-shadow: 0 0 5px 0 rgba( 0, 0, 0, 0.25 );
+
+		> li {
+
+			a {
+
+				display: block;
+				padding: 4px 9px;
+
+			}
+
+		}
+
+	}
+
+	&.active {
+
+		ul.items {
+
+			display: block;
+
+		}
+
+	}
+
+	&.right {
+
+		ul.items {
+
+			right: 0;
+
+		}
 
 	}
 
@@ -42,12 +232,13 @@ ul.nav-tabs {
 #terse {
 
 	display: inline-block;
+	margin-right: 7px;
 	padding: 5px;
-	font-family: 'Signika', sans-serif;
 	font-size: 16px;
 	font-weight: bold;
 	text-transform: uppercase;
 	text-decoration: none;
+	color: rgb( 0, 0, 0 );
 
 }
 
@@ -55,18 +246,36 @@ ul.nav-tabs {
 
 	float: right;
 
+
 }
 
 #metadata {
 
-	span.user {
+	padding: 20px 15px;
+
+}
+
+#title {
+
+	font-size: 24px;
+
+	a.user {
 
 		img.avatar {
 
-			width: 20px;
-			height: 20px;
+			display: inline-block;
+			vertical-align: middle;
+			margin-top: -4px;
+			width: 25px;
+			height: 25px;
 
 		}
+
+	}
+
+	a.title {
+
+		font-weight: bold;
 
 	}
 
@@ -77,7 +286,7 @@ ul.nav-tabs {
 	position: absolute;
 	top: 0;
 	right: 0;
-	padding: 5px;
+	padding: 20px 15px;
 
 	> ul {
 
@@ -104,14 +313,15 @@ ul.nav-tabs {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	background: #fcfcfc;
+	border-top: rgb( 230, 230, 230 ) 1px solid;
+	background: rgb( 255, 255, 255 );
 
 }
 
 div.CodeMirror {
 
 	position: absolute;
-	top: 43px;
+	top: 26px;
 	right: 0;
 	bottom: 0;
 	left: 0;
@@ -124,19 +334,15 @@ div.CodeMirror {
 #files {
 
 	position: absolute;
-	top: 30px;
+	top: 60px;
 	right: 50%;
 	bottom: 0;
 	left: 0;
-	padding-top: 5px;
-	background: #fcfcfc;
 
-	ul.nav.nav-tabs {
-		margin: 0;
-	}
+	ul.nav-tabs {
 
-	div.btn-toolbar {
-		margin: 0;
+		padding-left: 15px;
+
 	}
 
 }
@@ -144,16 +350,15 @@ div.CodeMirror {
 #result {
 
 	position: absolute;
-	top: 30px;
+	top: 60px;
 	right: 0;
 	bottom: 0;
 	left: 50%;
-	margin-left: 5px;
 
-	div.module {
-		right: 6px;
-		bottom: 0;
-		margin-bottom: 31px;
+	ul.nav-tabs {
+
+		padding-left: 15px;
+
 	}
 
 	iframe {
@@ -163,7 +368,7 @@ div.CodeMirror {
 		width: 100%;
 		height: 100%;
 		border: none;
-		box-shadow: 0 3px 4px rgba( 0, 0, 0, 0.05 );
+		border-left: rgb( 230, 230, 230 ) 1px dotted;
 		background: rgb( 255, 255, 255 );
 
 	}

@@ -1,3 +1,6 @@
+var ANONYMOUS_USER_AVATAR = 'https://i2.wp.com/a248.e.akamai.net/assets.github.com/images/gravatars/gravatar-user-420.png?ssl=1';
+var ANONYMOUS_USER_LOGIN = 'Anonymous';
+
 terse.Models.Group = Backbone.Model.extend({
 
 	urlRoot: 'https://api.github.com/gists',
@@ -19,10 +22,27 @@ terse.Models.Group = Backbone.Model.extend({
 
 	},
 
+	parse: function( data ){
+
+		var filenames = _( data.files ).keys();
+		data.title = filenames[0];
+		data.user = data.user || {
+			login: ANONYMOUS_USER_LOGIN,
+			avatar_url: ANONYMOUS_USER_AVATAR
+		};
+
+		return data;
+
+	},
+
 	defaults: {
 		description: 'A terse gist',
 		'public': true,
-		files: {}
+		files: {},
+		user: {
+			avatar_url: terse.user_data.avatar || ANONYMOUS_USER_AVATAR,
+			login: terse.user_data.username || ANONYMOUS_USER_LOGIN
+		}
 	},
 
 	initialize: function(){

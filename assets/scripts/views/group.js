@@ -2,13 +2,9 @@ terse.Views.Group = Backbone.View.extend({
 
 	template: terse.templates.group,
 
-	events: {
-		'click ul.nav-tabs li a': 'clickTab'
-	},
-
 	initialize: function(){
 
-		_( this ).bindAll( 'render', 'destroy' );
+		_( this ).bindAll( 'render', 'refreshTab', 'destroy' );
 
 	},
 
@@ -33,26 +29,19 @@ terse.Views.Group = Backbone.View.extend({
 		this.$js = this.$('#js').replaceWith( this.js.render().$el );
 		this.$result = this.$('#result').replaceWith( this.result.render().$el );
 
-		this.html.show();
-		this.css.hide();
-		this.js.hide();
+		this.$('#files').tabs({
+			activate: this.refreshTab
+		});
 
 		return this;
 
 	},
 
-	// Change the active tab
-	clickTab: function( e ){
+	// Refresh the editor in the new tab
+	refreshTab: function( e, ui ){
 
-		e.preventDefault();
-		var $tab = $(e.target);
-		var tab = $tab.attr('href').slice(1);
-		var view = this[tab];
-
-		this.html.hide();
-		this.css.hide();
-		this.js.hide();
-		view.show();
+		var tab = ui.newPanel.attr('id');
+		this[tab].editor.refresh();
 
 	},
 
