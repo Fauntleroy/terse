@@ -4,14 +4,15 @@ terse.Views.Toolbar = Backbone.View.extend({
 
 	events: {
 		'click #update': 'clickUpdate',
-		'click #save': 'clickSave'
+		'click #save': 'clickSave',
+		'click #privacy': 'clickPrivacy'
 	},
 
 	initialize: function(){
 
 		_(this).bindAll( 'clickUpdate', 'clickSave', 'disableSave', 'enableSave' );
 
-		this.listenTo( this.model, 'change:html_url sync', this.render );
+		this.listenTo( this.model, 'change:html_url change:public sync', this.render );
 		this.listenTo( this.model, 'request', this.disableSave );
 		this.listenTo( this.model, 'sync', this.enableSave );
 
@@ -46,6 +47,15 @@ terse.Views.Toolbar = Backbone.View.extend({
 		e.preventDefault();
 
 		this.model.save();
+
+	},
+
+	clickPrivacy: function( e ){
+
+		e.preventDefault();
+
+		var is_public = this.model.get('public');
+		this.model.set( 'public', !is_public );
 
 	},
 

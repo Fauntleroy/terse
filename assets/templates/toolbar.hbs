@@ -4,7 +4,7 @@
 			<button id="options" type="button" class="btn light">Options <i class="icon-cog"></i></button>
 		</li>
 		<li class="privacy">
-			<button id="privacy" type="button" class="btn light">{{#public}}Public <i class="icon-eye-open"></i>{{/public}}{{^public}}Private <i class="icon-eye-close"></i>{{/public}}</button>
+			<button id="privacy" type="button" class="btn light" {{#id}}disabled{{/id}}>{{#public}}Public <i class="icon-eye-open"></i>{{/public}}{{^public}}Private <i class="icon-eye-close"></i>{{/public}}</button>
 		</li>
 		<li class="update">
 			<button id="update" type="button" class="btn">Update <i class="icon-refresh"></i></button>

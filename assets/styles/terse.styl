@@ -22,7 +22,7 @@ a {
 
 header {
 
-	padding: 6px 10px;
+	padding: 7px 15px 7px 13px;
 
 }
 
@@ -47,7 +47,7 @@ input[type=submit].btn {
 	border: rgb( 85, 160, 255 ) 1px solid;
 	border-radius: 3px;
 	margin: 0 2px;
-	padding: 4px 9px 5px 9px;
+	padding: 5px 9px 6px 9px;
 	font-family: 'Roboto', sans-serif;
 	font-size: 13px;
 	font-weight: 700;
@@ -64,11 +64,25 @@ input[type=submit].btn {
 
 	}
 
+	&[disabled] {
+
+		cursor: default;
+		background-color: rgb( 175, 175, 175 );
+
+	}
+
 	&.light {
 
 		padding-left: 5px;
 		padding-right: 5px;
 		border-color: transparent;
+		background: transparent;
+
+		&[disabled] {
+
+			color: rgb( 175, 175, 175 );
+
+		}
 
 	}
 
@@ -187,7 +201,7 @@ div.dropdown {
 			a {
 
 				display: block;
-				padding: 6px 9px;
+				padding: 7px 10px;
 
 			}
 
@@ -226,7 +240,7 @@ div.dropdown {
 
 		display: inline-block;
 		position: relative;
-		padding: 4px 10px 5px 30px;
+		padding: 5px 10px 6px 33px;
 		font-weight: bold;
 
 		> img {
@@ -249,8 +263,8 @@ div.dropdown {
 
 	img {
 
-		width: 22px;
-		height: 22px;
+		width: 25px;
+		height: 25px;
 
 	}
 
@@ -336,7 +350,7 @@ div.dropdown {
 #group {
 
 	position: absolute;
-	top: 38px;
+	top: 40px;
 	right: 0;
 	bottom: 0;
 	left: 0;
