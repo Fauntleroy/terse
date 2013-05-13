@@ -25,7 +25,8 @@ terse.Models.Group = Backbone.Model.extend({
 	parse: function( data ){
 
 		var filenames = _( data.files ).keys();
-		data.title = filenames[0];
+		var title = /(.+)\.[a-z0-9]+$/i.exec( filenames[0] ) || [];
+		data.title = title[1];
 		data.user = data.user || {
 			login: ANONYMOUS_USER_LOGIN,
 			avatar_url: ANONYMOUS_USER_AVATAR
@@ -48,11 +49,12 @@ terse.Models.Group = Backbone.Model.extend({
 
 	initialize: function(){
 
-		_( this ).bindAll( 'isAnonymous', 'isOwnedBy', 'isForkable', 'updateFile', 'updateURL', 'keySave', 'save', 'fork', 'triggerUpdate', 'postDestroy' );
+		_( this ).bindAll( 'isAnonymous', 'isOwnedBy', 'isForkable', 'updateFilenames', 'updateFile', 'updateURL', 'keySave', 'save', 'fork', 'triggerUpdate', 'postDestroy' );
 
 		if( this.id ) this.fetch();
 
 		this.on( 'change:id', this.updateURL );
+		this.on( 'change:title', this.updateFilenames );
 		this.on( 'destroy', this.postDestroy );
 		jwerty.key( 'ctrl+s/cmd+s', this.keySave );
 
@@ -77,6 +79,20 @@ terse.Models.Group = Backbone.Model.extend({
 	isForkable: function(){
 
 		return ( !!this.id && !!terse.user_data.username && !this.isOwnedBy( terse.user_data.username ) );
+
+	},
+
+	// "rename" the gist's files when the title changes
+	updateFilenames: function( group, title ){
+
+		var files = this.get('files');
+		_( files ).each( function( value, key ){
+			var extension = /\..+$/i.exec( key )[0];
+			if( files[title + extension] === value ) return;
+			files[title + extension] = value;
+			delete files[key];
+		});
+		this.set( 'files', files );
 
 	},
 

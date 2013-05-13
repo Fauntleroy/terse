@@ -1,5 +1,5 @@
 <div id="metadata">
-	<div id="title">
-		<a class="user" {{#if user.html_url}}href="{{user.html_url}}" target="_blank"{{/if}}><img  class="avatar" src="{{user.avatar_url}}" /> {{user.login}}</a> / <a class="title" href="{{html_url}}" target="_blank">{{title}}</a>
+	<div id="title" class="{{^title}}editing{{/title}}">
+		<a class="user" {{#if user.html_url}}href="{{user.html_url}}" target="_blank"{{/if}}><img  class="avatar" src="{{user.avatar_url}}" /> {{user.login}}</a> / <a class="title" href="{{html_url}}" target="_blank">{{title}}</a><input name="title" class="title" type="text" placeholder="untitled" />
 	</div>
 </div>

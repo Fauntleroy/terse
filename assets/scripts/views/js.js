@@ -36,17 +36,19 @@ terse.Views.JS = Backbone.View.extend({
 	// Update the model's data with the editor's contents
 	updateModel: function( cm, change ){
 		
+		var filename = this.model.get('title') +'.js';
 		var content = this.editor.getValue();
 
-		this.model.updateFile( 'script.js', content );
+		this.model.updateFile( filename, content );
 
 	},
 
 	// Update the contents of the editor with model data
 	updateEditor: function(){
 
+		var filename = this.model.get('title') +'.js';
 		var files = this.model.get('files');
-		var js = ( files['script.js'] )? files['script.js'].content: '';
+		var js = ( files[filename] )? files[filename].content: '';
 		var editor_contents = this.editor.getValue();
 
 		if( js !== editor_contents ) this.editor.setValue( js );

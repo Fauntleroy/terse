@@ -37,16 +37,18 @@ terse.Views.HTML = Backbone.View.extend({
 	updateModel: function( cm, change ){
 		
 		var content = this.editor.getValue();
+		var filename = this.model.get('title') +'.html';
 
-		this.model.updateFile( 'markup.html', content );
+		this.model.updateFile( filename, content );
 
 	},
 
 	// Update the contents of the editor with model data
 	updateEditor: function(){
 
+		var filename = this.model.get('title') +'.html';
 		var files = this.model.get('files');
-		var html = ( files['markup.html'] )? files['markup.html'].content: '';
+		var html = ( files[filename] )? files[filename].content: '';
 		var editor_contents = this.editor.getValue();
 
 		if( html !== editor_contents ) this.editor.setValue( html );

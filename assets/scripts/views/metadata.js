@@ -3,15 +3,14 @@ terse.Views.Metadata = Backbone.View.extend({
 	template: terse.templates.metadata,
 
 	events: {
-		'change [name=description]': 'updateDescription'
+		'change [name=title]': 'updateTitle'
 	},
 
 	initialize: function(){
 
-		_( this ).bindAll( 'render', 'updateDescription', 'renderDescription' );
+		_( this ).bindAll( 'render', 'updateTitle' );
 
 		this.listenTo( this.model, 'change:user change:html_url', this.render );
-		this.listenTo( this.model, 'change:description', this.renderDescription );
 
 	},
 
@@ -22,23 +21,16 @@ terse.Views.Metadata = Backbone.View.extend({
 		this.$el.replaceWith( $metadata );
 		this.setElement( $metadata );
 
-		this.$description = this.$('[name=description]');
+		this.$title = this.$('[name=title]');
 
 		return this;
 
 	},
 
-	renderDescription: function( model, description ){
+	updateTitle: function( e ){
 
-		var old_description = this.$description.val();
-		if( description !== old_description ) this.$description.val( description );
-
-	},
-
-	updateDescription: function(){
-
-		var description = this.$description.val();
-		this.model.set( 'description', description );
+		var title = this.$title.val();
+		this.model.set( 'title', title );
 
 	}
 

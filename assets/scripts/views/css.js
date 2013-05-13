@@ -36,17 +36,19 @@ terse.Views.CSS = Backbone.View.extend({
 	// Update the model's data with the editor's contents
 	updateModel: function( cm, change ){
 		
+		var filename = this.model.get('title') +'.css';
 		var content = this.editor.getValue();
 
-		this.model.updateFile( 'style.css', content );
+		this.model.updateFile( filename, content );
 
 	},
 
 	// Update the contents of the editor with model data
 	updateEditor: function(){
 
+		var filename = this.model.get('title') +'.css';
 		var files = this.model.get('files');
-		var css = ( files['style.css'] )? files['style.css'].content: '';
+		var css = ( files[filename] )? files[filename].content: '';
 		var editor_contents = this.editor.getValue();
 
 		if( css !== editor_contents ) this.editor.setValue( css );

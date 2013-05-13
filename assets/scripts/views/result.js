@@ -26,10 +26,16 @@ terse.Views.Result = Backbone.View.extend({
 	// Update the contents of the result iframe
 	update: function(){
 
+		var html = '', css = '', js = '';
+		var extension_regex = /\.[a-z0-9]+$/i;
 		var files = this.model.get('files');
-		var html = ( files['markup.html'] )? files['markup.html'].content: '';
-		var css = ( files['style.css'] )? files['style.css'].content: '';
-		var js = ( files['script.js'] )? files['script.js'].content: '';
+		_( files ).each( function( value, key ){
+			var extension = extension_regex.exec( key ) || [];
+			extension = extension[0];
+			if( extension === '.html' ) html = value.content;
+			else if( extension === '.css' ) css = value.content;
+			else if( extension === '.js' ) js = value.content;
+		});
 		var iframe_content = '<head><style>'+ css +'</style></head><body>'+ html +'<script>'+ js +'</script></body>';
 		var iframe_doc = this.$iframe.contents()[0];
 
