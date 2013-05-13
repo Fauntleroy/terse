@@ -15,6 +15,7 @@ terse.Views.JS = Backbone.View.extend({
 		var editor_defaults = {
 			mode: 'javascript',
 			lineNumbers: true,
+			lineWrapping: true,
 			indentUnit: 4,
 			indentWithTabs: true
 		};

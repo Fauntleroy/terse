@@ -15,6 +15,7 @@ terse.Views.CSS = Backbone.View.extend({
 		var editor_defaults = {
 			mode: 'css',
 			lineNumbers: true,
+			lineWrapping: true,
 			indentUnit: 4,
 			indentWithTabs: true
 		};
