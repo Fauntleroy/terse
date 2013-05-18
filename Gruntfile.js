@@ -30,7 +30,7 @@ module.exports = function(grunt) {
 			}
 		},
 		concat: {
-			js: {
+			scripts: {
 				options: {
 					separator: ';'
 				},
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
 					]
 				}
 			},
-			css: {
+			styles: {
 				options: {
 					separator: '\n'
 				},
@@ -89,13 +89,20 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
-			files: [
-				'assets/scripts/**/*.js',
-				'assets/styles/**/*.css',
-				'assets/styles/**/*.styl',
-				'assets/templates/**/*.hbs'
-			],
-			tasks: ['build']
+			styles: {
+				files: [ 'assets/styles/**/*.css', 'assets/styles/**/*.styl' ],
+				tasks: ['build_styles'],
+				options: {
+					livereload: true
+				}
+			},
+			scripts: {
+				files: [
+					'assets/scripts/**/*.js',
+					'assets/templates/**/*.hbs'
+				],
+				tasks: ['build_scripts']
+			}
 		},
 		jshint: {
 			all: [ 'assets/scripts/**/*.js', '!assets/scripts/vendor/**/*.js' ]
@@ -121,7 +128,9 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask( 'default', ['build'] );
-	grunt.registerTask( 'build', [ 'stylus', 'handlebars', 'concat' ] );
+	grunt.registerTask( 'build', ['build_styles','build_scripts'] );
+	grunt.registerTask( 'build_styles', [ 'stylus', 'concat:styles' ] );
+	grunt.registerTask( 'build_scripts', [ 'handlebars', 'concat:scripts' ] );
 	grunt.registerTask( 'minify', [ 'uglify', 'cssmin' ] );
 	grunt.registerTask( 'predeploy', [ 'build' ] );
 	grunt.registerTask( 'dev', [ 'build', 'server', 'watch' ] );

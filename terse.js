@@ -36,6 +36,7 @@ router.use( express.session({
 		client: redis_client
 	})
 }) );
+router.locals.DEVELOPMENT = ( process.env.NODE_ENV === 'development' );
 
 router.configure( 'development', function(){
 	router.use( express.logger() );
