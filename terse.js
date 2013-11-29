@@ -6,7 +6,7 @@ var URL = process.env.TERSE_URL || 'http://terse.jit.su';
 var REDIS_HOST = process.env.TERSE_REDIS_HOST || 'localhost';
 var REDIS_PORT = process.env.TERSE_REDIS_PORT || '6379';
 var REDIS_PASS = process.env.TERSE_REDIS_PASS;
-var HTTP_PORT = process.env.TERSE_HTTP_PORT || 8080;
+var HTTP_PORT = process.env.TERSE_HTTP_PORT || process.env.VCAP_APP_PORT || 8080;
 var DEFAULT_GIST_ID = process.env.DEFAULT_GIST_ID || 5565184;
 var USER_AGENT = 'Terse/'+ VERSION;
 
