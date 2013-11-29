@@ -1,14 +1,14 @@
 // Process environment variables
-var VERSION = require('./package.json').version;
-var GITHUB_APP_ID = process.env.TERSE_GITHUB_APP_ID;
-var GITHUB_APP_SECRET = process.env.TERSE_GITHUB_APP_SECRET;
-var URL = process.env.TERSE_URL || 'http://terse.jit.su';
-var REDIS_HOST = process.env.TERSE_REDIS_HOST || 'localhost';
-var REDIS_PORT = process.env.TERSE_REDIS_PORT || '6379';
-var REDIS_PASS = process.env.TERSE_REDIS_PASS;
-var HTTP_PORT = process.env.TERSE_HTTP_PORT || process.env.VCAP_APP_PORT || 8080;
-var DEFAULT_GIST_ID = process.env.DEFAULT_GIST_ID || 5565184;
-var USER_AGENT = 'Terse/'+ VERSION;
+const VERSION = require('./package.json').version;
+const GITHUB_APP_ID = process.env.TERSE_GITHUB_APP_ID;
+const GITHUB_APP_SECRET = process.env.TERSE_GITHUB_APP_SECRET;
+const URL = process.env.TERSE_URL || 'http://terse.jit.su';
+const REDIS_HOST = process.env.TERSE_REDIS_HOST || 'localhost';
+const REDIS_PORT = process.env.TERSE_REDIS_PORT || '6379';
+const REDIS_PASS = process.env.TERSE_REDIS_PASS;
+const HTTP_PORT = process.env.TERSE_HTTP_PORT || process.env.VCAP_APP_PORT || 8080;
+const DEFAULT_GIST_ID = process.env.DEFAULT_GIST_ID || 5565184;
+const USER_AGENT = 'Terse/'+ VERSION;
 
 // Configure the web server
 var express = require('express');
