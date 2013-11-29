@@ -2,8 +2,8 @@
 const VERSION = require('./package.json').version;
 const GITHUB_APP_ID = process.env.TERSE_GITHUB_APP_ID;
 const GITHUB_APP_SECRET = process.env.TERSE_GITHUB_APP_SECRET;
-const URL = process.env.TERSE_URL || 'http://terse.jit.su';
-const REDIS_HOST = process.env.TERSE_REDIS_HOST || 'localhost';
+const URL = process.env.TERSE_URL || 'http://dev.terse';
+const REDIS_HOST = process.env.TERSE_REDIS_HOST || 'local.host';
 const REDIS_PORT = process.env.TERSE_REDIS_PORT || '6379';
 const REDIS_PASS = process.env.TERSE_REDIS_PASS;
 const HTTP_PORT = process.env.TERSE_HTTP_PORT || process.env.VCAP_APP_PORT || 8080;
