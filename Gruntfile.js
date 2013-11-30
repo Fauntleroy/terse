@@ -30,6 +30,14 @@ module.exports = function(grunt) {
 			}
 		},
 		browserify: {
+			options: {
+				shim: {
+					jquery: {
+						path: 'assets/scripts/vendor/jquery.js',
+						exports: '$'
+					}
+				}
+			},
 			terse: {
 				files: {
 					'assets/compiled/scripts.js': ['assets/scripts/terse.js']

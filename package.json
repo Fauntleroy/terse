@@ -39,7 +39,9 @@
     "browserify": "~2.36.0",
     "grunt-browserify": "~1.2.11",
     "grunt-contrib-less": "~0.8.2",
-    "grunt-cssjoin": "~0.2.0"
+    "grunt-cssjoin": "~0.2.0",
+    "underscore": "~1.5.2",
+    "backbone": "~1.1.0"
   },
   "subdomain": "terse",
   "engines": {
