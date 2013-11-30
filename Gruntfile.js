@@ -29,41 +29,21 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		concat: {
-			js: {
-				options: {
-					separator: ';'
-				},
+		browserify: {
+			terse: {
 				files: {
-					'assets/compiled/terse.js': [
-						'assets/scripts/vendor/jquery/**/*.js',
-						'assets/scripts/vendor/jqueryui/**/*.js',
-						'assets/scripts/vendor/underscore/**/*.js',
-						'assets/scripts/vendor/backbone/**/*.js',
-						'assets/scripts/vendor/codemirror/codemirror.js',
-						'assets/scripts/vendor/codemirror/modes/**/*.js',
-						'assets/scripts/vendor/jwerty/jwerty.js',
-						'assets/scripts/vendor/handlebars/**/*.js',
-						'assets/scripts/terse.js',
-						'assets/scripts/header.js',
-						'assets/compiled/templates.js',
-						'assets/scripts/models/**/*.js',
-						'assets/scripts/views/**/*.js',
-						'assets/scripts/routers/**/*.js',
-						'assets/scripts/application.js'
-					]
+					'assets/compiled/scripts.js': ['assets/scripts/terse.js']
 				}
-			},
-			css: {
+			}
+		},
+		less: {
+			compile: {
 				options: {
-					separator: '\n'
+					paths: ['assets/styles/'],
+					strictImports: true
 				},
 				files: {
-					'assets/compiled/styles.css': [
-						'assets/styles/vendor/font-awesome/**/*',
-						'assets/styles/vendor/codemirror/**/*',
-						'assets/compiled/styles.css'
-					]
+					'assets/compiled/styles.css': ['assets/styles/terse.less']
 				}
 			}
 		},
@@ -121,7 +101,7 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask( 'default', ['build'] );
-	grunt.registerTask( 'build', [ 'stylus', 'handlebars', 'concat' ] );
+	grunt.registerTask( 'build', [ 'stylus', 'handlebars', 'browserify', 'less' ] );
 	grunt.registerTask( 'minify', [ 'uglify', 'cssmin' ] );
 	grunt.registerTask( 'predeploy', [ 'build' ] );
 	grunt.registerTask( 'dev', [ 'build', 'server', 'watch' ] );
