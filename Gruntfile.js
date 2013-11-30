@@ -15,13 +15,12 @@ module.exports = function(grunt) {
 			}
 		},
 		handlebars: {
-			compile: {
+			templates: {
 				options: {
-					namespace: 'terse.templates',
-					processName: function( filename ){
-						filename = filename.replace( /^assets\/templates\//i, '' );
-						filename = filename.replace( /\.hbs$/i, '' );
-						return filename;
+					namespace: false,
+					commonjs: true,
+					processName: function( file_path ){
+						return file_path.replace( /^(assets\/templates\/)/, '' ).replace( /(\.hbs)$/, '' );
 					}
 				},
 				files: {

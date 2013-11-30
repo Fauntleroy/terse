@@ -1,7 +1,10 @@
 var _ = require('underscore');
 var Backbone = require('backbone');
 var $ = Backbone.$ = require('jquery');
+
+// models, views, collections
 var Gist = require('../models/gist.js');
+var GistView = require('../views/gist.js');
 
 // set up namespace
 var terse = window.terse = window.terse || {};
@@ -23,7 +26,9 @@ module.exports = Backbone.Router.extend({
 			user_data: terse.user_data
 		});
 		terse.views = {
-			gist: {}
+			gist: new GistView({
+				model: terse.gist
+			})
 		};
 	}
 });
