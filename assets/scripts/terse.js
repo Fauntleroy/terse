@@ -3,22 +3,16 @@ Terse Module
 This is the base that includes all submodules and initializes the application
 */
 
-var _ = require('underscore');
 var Backbone = require('backbone');
-var $ = require('jquery');
 
 // set up namespace
 var terse = window.terse = window.terse || {};
 
-// Models and Collections
+// Router
+var Router = require('./routers/index.js');
 
-
-$(function(){
-	// start mediator for event transmission
-	var mediator = terse.mediator = _.extend( {}, Backbone.Events );
-	// initialize models and collections
-	terse.gist = {};
-	terse.views = {
-		gist: {}
-	};
+// initialize router
+terse.router = new Router;
+Backbone.history.start({
+	pushState: true
 });

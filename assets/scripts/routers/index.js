@@ -1,21 +1,27 @@
-terse.Routers.Application = Backbone.Router.extend({
+var _ = require('underscore');
+var Backbone = require('backbone');
+var $ = Backbone.$ = require('jquery');
+var Gist = require('../models/gist.js');
 
+// set up namespace
+var terse = window.terse = window.terse || {};
+
+// start mediator for event transmission
+var mediator = terse.mediator = _.extend( {}, Backbone.Events );
+
+module.exports = Backbone.Router.extend({
 	routes: {
 		'': 'home',
 		'g/:id': 'home',
 		'new': 'home'
 	},
-
 	home: function( id ){
-
-		terse.group = new terse.Models.Group({ id: id });
-
-		if( terse.views.group ) terse.views.group.destroy();
-		terse.views.group = new terse.Views.Group({
-			model: terse.group
+		// initialize models and collections
+		terse.gist = new Gist({
+			id: id
 		});
-		$('#application').html( terse.views.group.render().$el );
-
+		terse.views = {
+			gist: {}
+		};
 	}
-
 });
