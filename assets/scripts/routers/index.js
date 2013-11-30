@@ -19,6 +19,8 @@ module.exports = Backbone.Router.extend({
 		// initialize models and collections
 		terse.gist = new Gist({
 			id: id
+		}, {
+			user_data: terse.user_data
 		});
 		terse.views = {
 			gist: {}
