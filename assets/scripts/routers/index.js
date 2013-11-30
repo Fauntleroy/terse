@@ -25,10 +25,14 @@ module.exports = Backbone.Router.extend({
 		}, {
 			user_data: terse.user_data
 		});
-		terse.views = {
-			gist: new GistView({
-				model: terse.gist
-			})
-		};
+		// wait for DOM and initialize views
+		$(function(){
+			terse.views = {
+				gist: new GistView({
+					el: '#gist',
+					model: terse.gist
+				})
+			};
+		});
 	}
 });
