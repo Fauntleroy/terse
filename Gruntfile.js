@@ -69,13 +69,20 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
-			files: [
-				'assets/scripts/**/*.js',
-				'assets/styles/**/*.css',
-				'assets/styles/**/*.styl',
-				'assets/templates/**/*.hbs'
-			],
-			tasks: ['build']
+			css: {
+				files: [ 'assets/styles/**/*.less', 'assets/styles/**/*.css' ],
+				tasks: [ 'buildcss' ]
+			},
+			js: {
+				files: [ 'assets/templates/**/*.hbs', 'assets/scripts/**/*.js' ],
+				tasks: [ 'buildjs' ]
+			},
+			livereload: {
+				options: {
+					livereload: true
+				},
+				files: [ 'assets/compiled/styles.css' ]
+			}
 		},
 		jshint: {
 			all: [ 'assets/scripts/**/*.js', '!assets/scripts/vendor/**/*.js' ]
@@ -101,7 +108,9 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask( 'default', ['build'] );
-	grunt.registerTask( 'build', [ 'stylus', 'handlebars', 'browserify', 'less' ] );
+	grunt.registerTask( 'buildcss', [ 'less' ] );
+	grunt.registerTask( 'buildjs', [ 'handlebars', 'browserify' ] );
+	grunt.registerTask( 'build', [ 'buildcss', 'buildjs' ] );
 	grunt.registerTask( 'minify', [ 'uglify', 'cssmin' ] );
 	grunt.registerTask( 'predeploy', [ 'build' ] );
 	grunt.registerTask( 'dev', [ 'build', 'server', 'watch' ] );
