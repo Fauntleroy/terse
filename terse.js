@@ -67,7 +67,6 @@ passport.use( new GithubStrategy({
 		'User-Agent': USER_AGENT
 	}
 }, function( access_token, refresh_token, profile, done ){
-
 	var user = {
 		username: profile.username,
 		name: profile.displayName,
@@ -77,35 +76,27 @@ passport.use( new GithubStrategy({
 		access_token: access_token,
 		refresh_token: refresh_token
 	};
-
 	done( null, user );
-
 }));
 
 // Routes
 router.get( '/', function( req, res ){
-
 	res.redirect( '/g/'+ DEFAULT_GIST_ID );
-
 });
 
 router.get( '/new', function( req, res ){
-
 	res.expose( req.user || {}, 'terse.user_data' );
 	res.render( 'index.hbs', {
 		user: req.user
 	});
-
 });
 
 router.get( '/g/:id', function( req, res ){
-
 	res.expose( req.user || {}, 'terse.user_data' );
 	res.expose( req.params || {}, 'terse.request.params' );
 	res.render( 'index.hbs', {
 		user: req.user
 	});
-
 });
 
 router.get( '/auth/github',	passport.authenticate( 'github', {
@@ -118,10 +109,8 @@ router.get( '/auth/github/callback', passport.authenticate( 'github', {
 }));
 
 router.get( '/logout', function( req, res ){
-
 	req.logout();
 	res.redirect('/');
-
 });
 
 router.listen( HTTP_PORT );
