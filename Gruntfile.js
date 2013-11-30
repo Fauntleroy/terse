@@ -40,10 +40,21 @@ module.exports = function(grunt) {
 			compile: {
 				options: {
 					paths: ['assets/styles/'],
-					strictImports: true
+					strictImports: true,
+					syncImport: true
 				},
 				files: {
 					'assets/compiled/styles.css': ['assets/styles/terse.less']
+				}
+			}
+		},
+		cssjoin: {
+			compile: {
+				options: {
+					paths: ['assets/styles']
+				},
+				files: {
+					'assets/compiled/styles.css': ['assets/compiled/styles.css']
 				}
 			}
 		},
@@ -108,7 +119,7 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask( 'default', ['build'] );
-	grunt.registerTask( 'buildcss', [ 'less' ] );
+	grunt.registerTask( 'buildcss', [ 'less', 'cssjoin' ] );
 	grunt.registerTask( 'buildjs', [ 'handlebars', 'browserify' ] );
 	grunt.registerTask( 'build', [ 'buildcss', 'buildjs' ] );
 	grunt.registerTask( 'minify', [ 'uglify', 'cssmin' ] );
