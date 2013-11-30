@@ -25,6 +25,7 @@ var redis_client = redis.createClient( REDIS_PORT, REDIS_HOST );
 if( REDIS_PASS ) redis_client.auth( REDIS_PASS );
 var RedisStore = require('connect-redis')( express );
 
+router.locals.livereload = ( process.env.NODE_ENV === 'development' );
 router.engine( 'hbs', handlebars );
 router.set( 'view engine', 'hbs' );
 router.use( express.static( __dirname + '/assets' ) );
