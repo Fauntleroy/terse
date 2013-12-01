@@ -32,11 +32,9 @@ module.exports = Backbone.View.extend({
 		});
 	},
 	setLoading: function(){
-		console.log('setLoading');
 		this.$el.addClass('loading');
 	},
 	unsetLoading: function(){
-		console.log('unsetLoading');
 		this.$el.removeClass('loading');
 	}
 });
