@@ -23,7 +23,7 @@ module.exports = Backbone.View.extend({
 		'click .listing a[href="#file"]': 'clickFile'
 	},
 	initialize: function(){
-		_.bindAll( this, 'addFile', 'activeFile', 'clickFile' );
+		_.bindAll( this, 'addFile', 'activeFile', 'updateFile', 'clickFile' );
 		this.listenTo( this.model, 'reset', this.render );
 		this.files = [];
 		this.render();
@@ -40,6 +40,7 @@ module.exports = Backbone.View.extend({
 			indentUnit: 4,
 			indentWithTabs: true
 		});
+		this.listenTo( this.editor, 'change', this.updateFile );
 		_.each( files, this.addFile );
 	},
 	addFile: function( file ){
@@ -49,7 +50,6 @@ module.exports = Backbone.View.extend({
 			doc: doc
 		};
 		this.files.push( file );
-		this.trigger( 'active', file );
 		this.activeFile( file );
 	},
 	activeFile: function( file ){
@@ -63,6 +63,17 @@ module.exports = Backbone.View.extend({
 		this.$listing
 			.children('li[data-filename="'+ file.filename +'"]').addClass('active')
 			.siblings().removeClass('active');
+		var prev_active = _.findWhere( this.files, { active: true });
+		this.trigger( 'active', file, prev_active );
+		if( prev_active ) prev_active.active = false;
+		file.active = true;
+	},
+	updateFile: function( editor, change ){
+		var content = this.editor.getDoc().getValue();
+		var active_file = _.findWhere( this.files, { active: true });
+		var files = this.model.get('files');
+		files[active_file.filename].content = content;
+		this.model.set( 'files', files );
 	},
 	clickFile: function( e ){
 		e.preventDefault();
