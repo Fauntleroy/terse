@@ -33,6 +33,8 @@ module.exports = Backbone.Router.extend({
 					model: terse.gist
 				})
 			};
+			// I'd love to start fetch before this but we need the 'request' event
+			if( id ) terse.gist.fetch();
 		});
 	}
 });

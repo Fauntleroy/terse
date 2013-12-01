@@ -26,6 +26,5 @@ module.exports = Backbone.Model.extend({
 	initialize: function( data, config ){
 		config = config || {};
 		this.user_data = config.user_data || {};
-		if( this.id ) this.fetch();
 	}
 });

@@ -11,8 +11,11 @@ var ResultView = require('./result.js');
 module.exports = Backbone.View.extend({
 	template: templates.gist,
 	initialize: function(){
+		var view = this;
 		this.listenTo( this.model, 'change', this.render );
-		this.render();
+		this.listenTo( this.model, 'request', this.setLoading );
+		this.listenTo( this.model, 'sync', this.unsetLoading );
+		view.render();
 	},
 	render: function(){
 		var html = this.template( this.model.toJSON() );
@@ -27,5 +30,13 @@ module.exports = Backbone.View.extend({
 			el: this.$result,
 			model: this.model
 		});
+	},
+	setLoading: function(){
+		console.log('setLoading');
+		this.$el.addClass('loading');
+	},
+	unsetLoading: function(){
+		console.log('unsetLoading');
+		this.$el.removeClass('loading');
 	}
 });
