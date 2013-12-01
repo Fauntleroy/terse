@@ -2,6 +2,8 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 var $ = Backbone.$ = require('jquery');
 var Handlebars = require('handlebars');
+var handlebars_helper = require('handlebars-helper');
+handlebars_helper.help( Handlebars );
 var templates = require('../../compiled/templates.js')( Handlebars );
 
 module.exports = Backbone.View.extend({

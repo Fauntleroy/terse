@@ -1,7 +1,18 @@
 var _ = require('underscore');
 var Backbone = require('backbone');
 
+var ANONYMOUS_USER_AVATAR = 'https://i2.wp.com/a248.e.akamai.net/assets.github.com/images/gravatars/gravatar-user-420.png?ssl=1';
+var ANONYMOUS_USER_LOGIN = 'Anonymous';
+
 module.exports = Backbone.Model.extend({
+	defaults: {
+		comments: 0,
+		forks: [],
+		user: {
+			login: ANONYMOUS_USER_LOGIN,
+			avatar_url: ANONYMOUS_USER_AVATAR
+		}
+	},
 	urlRoot: 'https://api.github.com/gists',
 	url: function( options ){
 		options = options || {};
