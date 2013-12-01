@@ -5,21 +5,15 @@ var Handlebars = require('handlebars');
 var handlebars_helper = require('handlebars-helper');
 handlebars_helper.help( Handlebars );
 var templates = require('../../compiled/templates.js')( Handlebars );
-var EditorView = require('./editor.js');
 
 module.exports = Backbone.View.extend({
-	template: templates.gist,
+	template: templates.editor,
 	initialize: function(){
-		this.listenTo( this.model, 'change', this.render );
+		this.listenTo( this.model, 'change:files', this.render );
 		this.render();
 	},
 	render: function(){
 		var html = this.template( this.model.toJSON() );
 		this.$el.html( html );
-		this.$editor = this.$('#editor');
-		this.editor = new EditorView({
-			el: this.$editor,
-			model: this.model
-		});
 	}
 });
