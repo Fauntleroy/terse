@@ -20,7 +20,7 @@ const TYPES_TO_MODES = {
 module.exports = Backbone.View.extend({
 	template: templates.editor,
 	initialize: function(){
-		_.bindAll( this, 'addDoc' );
+		_.bindAll( this, 'addFile', 'activeFile' );
 		this.listenTo( this.model, 'change:files', this.render );
 		this.files = [];
 		this.render();
@@ -29,6 +29,7 @@ module.exports = Backbone.View.extend({
 		var files = this.model.get('files');
 		var html = this.template( this.model.toJSON() );
 		this.$el.html( html );
+		this.$listing = this.$('.listing');
 		this.$editor = this.$('.editor');
 		this.editor = CodeMirror.fromTextArea( this.$editor[0], {
 			lineNumbers: true,
@@ -36,14 +37,22 @@ module.exports = Backbone.View.extend({
 			indentUnit: 4,
 			indentWithTabs: true
 		});
-		_.each( files, this.addDoc );
+		_.each( files, this.addFile );
 	},
-	addDoc: function( file ){
+	addFile: function( file ){
 		var doc = CodeMirror.Doc( file.content, TYPES_TO_MODES[file.type] );
-		this.files.push({
+		var file = {
 			filename: file.filename,
 			doc: doc
-		});
-		this.editor.swapDoc( doc );
+		};
+		this.files.push( file );
+		this.trigger( 'active', file );
+		this.activeFile( file );
+	},
+	activeFile: function( file ){
+		this.editor.swapDoc( file.doc );
+		this.$listing
+			.children('li[data-filename="'+ file.filename +'"]').addClass('active')
+			.siblings().removeClass('active');
 	}
 });
