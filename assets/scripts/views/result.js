@@ -12,7 +12,7 @@ module.exports = Backbone.View.extend({
 	template: templates.result,
 	initialize: function(){
 		_.bindAll( this, 'addFile', 'activeFile' );
-		this.listenTo( this.model, 'change:files', this.render );
+		this.listenTo( this.model, 'reset', this.render );
 		this.files = [];
 		this.render();
 	},
