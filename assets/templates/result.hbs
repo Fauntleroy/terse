@@ -1,10 +1,10 @@
-<ul class="listing">
+<ul class="listing tabs">
 {{#each files}}
 	<li>
-		<a href="#file"><h2>{{filename}}</h2></a>
-		<a href="#file-menu"><i class="fa fa-caret-down"></i></a>
+		<a class="gray" href="#file">{{filename}}</a>
+		<a class="gray" href="#file-menu"><i class="fa fa-caret-down"></i></a>
 	</li>
 {{/each}}
 </ul>
-<a href="#refresh-result"><i class="fa fa-refresh"></i></a>
+<a class="refresh" href="#refresh-result"><i class="fa fa-refresh"></i></a>
 <iframe></iframe>
