@@ -34,6 +34,38 @@ module.exports = function(grunt) {
 					jquery: {
 						path: 'assets/scripts/vendor/jquery.js',
 						exports: '$'
+					},
+					codemirror: {
+						path: 'assets/scripts/vendor/codemirror/codemirror.js',
+						exports: 'CodeMirror'
+					},
+					'codemirror-mode-javascript': {
+						path: 'assets/scripts/vendor/codemirror/mode/javascript/javascript.js',
+						exports: null,
+						depends: {
+							codemirror: 'CodeMirror'
+						}
+					},
+					'codemirror-mode-css': {
+						path: 'assets/scripts/vendor/codemirror/mode/css/css.js',
+						exports: null,
+						depends: {
+							codemirror: 'CodeMirror'
+						}
+					},
+					'codemirror-mode-xml': {
+						path: 'assets/scripts/vendor/codemirror/mode/xml/xml.js',
+						exports: null,
+						depends: {
+							codemirror: 'CodeMirror'
+						}
+					},
+					'codemirror-mode-htmlmixed': {
+						path: 'assets/scripts/vendor/codemirror/mode/htmlmixed/htmlmixed.js',
+						exports: null,
+						depends: {
+							codemirror: 'CodeMirror'
+						}
 					}
 				}
 			},
