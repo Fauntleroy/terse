@@ -20,7 +20,8 @@ const TYPES_TO_MODES = {
 module.exports = Backbone.View.extend({
 	template: templates.editor,
 	events: {
-		'click .listing a[href="#file"]': 'clickFile'
+		'click .listing a[href="#file"]': 'clickFile',
+		'click .save': 'clickSave'
 	},
 	initialize: function(){
 		_.bindAll( this, 'addFile', 'activeFile', 'updateFile', 'clickFile' );
@@ -81,5 +82,9 @@ module.exports = Backbone.View.extend({
 		var $file_listing = $file_link.closest('li');
 		var filename = $file_listing.data('filename');
 		this.activeFile( filename );
+	},
+	clickSave: function( e ){
+		e.preventDefault();
+		this.model.save();
 	}
 });
