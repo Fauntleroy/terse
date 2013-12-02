@@ -1,0 +1,13 @@
+<ul class="listing tabs">
+{{#each files}}
+	<li data-filename="{{filename}}">
+		<a class="gray" href="#file">{{filename}}</a>
+		<a class="gray" href="#file-menu"><i class="fa fa-caret-down"></i></a>
+	</li>
+{{/each}}
+</ul>
+<ul class="actions">
+	<li><a class="new green" href="#new-file"><i class="fa fa-plus"></i></a></li>
+	<li><a class="save" href="#save"><i class="fa fa-save"></i></a></li>
+</ul>
+<textarea class="editor"></textarea>

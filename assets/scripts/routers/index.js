@@ -1,21 +1,40 @@
-terse.Routers.Application = Backbone.Router.extend({
+var _ = require('underscore');
+var Backbone = require('backbone');
+var $ = Backbone.$ = require('jquery');
 
+// models, views, collections
+var Gist = require('../models/gist.js');
+var GistView = require('../views/gist.js');
+
+// set up namespace
+var terse = window.terse = window.terse || {};
+
+// start mediator for event transmission
+var mediator = terse.mediator = _.extend( {}, Backbone.Events );
+
+module.exports = Backbone.Router.extend({
 	routes: {
-		'': 'home',
-		'g/:id': 'home',
-		'new': 'home'
+		'': 'index',
+		'g/:id': 'index',
+		'new': 'index'
 	},
-
-	home: function( id ){
-
-		terse.group = new terse.Models.Group({ id: id });
-
-		if( terse.views.group ) terse.views.group.destroy();
-		terse.views.group = new terse.Views.Group({
-			model: terse.group
+	index: function( id ){
+		// initialize models and collections
+		terse.gist = new Gist({
+			id: id
+		}, {
+			user_data: terse.user_data
 		});
-		$('#application').html( terse.views.group.render().$el );
-
+		// wait for DOM and initialize views
+		$(function(){
+			terse.views = {
+				gist: new GistView({
+					el: '#gist',
+					model: terse.gist
+				})
+			};
+			// I'd love to start fetch before this but we need the 'request' event
+			if( id ) terse.gist.fetch();
+		});
 	}
-
 });

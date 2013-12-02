@@ -1,14 +1,14 @@
 // Process environment variables
-var VERSION = require('./package.json').version;
-var GITHUB_APP_ID = process.env.TERSE_GITHUB_APP_ID;
-var GITHUB_APP_SECRET = process.env.TERSE_GITHUB_APP_SECRET;
-var URL = process.env.TERSE_URL || 'http://terse.jit.su';
-var REDIS_HOST = process.env.TERSE_REDIS_HOST || 'localhost';
-var REDIS_PORT = process.env.TERSE_REDIS_PORT || '6379';
-var REDIS_PASS = process.env.TERSE_REDIS_PASS;
-var HTTP_PORT = process.env.TERSE_HTTP_PORT || process.env.VCAP_APP_PORT || 8080;
-var DEFAULT_GIST_ID = process.env.DEFAULT_GIST_ID || 5565184;
-var USER_AGENT = 'Terse/'+ VERSION;
+const VERSION = require('./package.json').version;
+const GITHUB_APP_ID = process.env.TERSE_GITHUB_APP_ID;
+const GITHUB_APP_SECRET = process.env.TERSE_GITHUB_APP_SECRET;
+const URL = process.env.TERSE_URL || 'http://dev.terse';
+const REDIS_HOST = process.env.TERSE_REDIS_HOST || 'local.host';
+const REDIS_PORT = process.env.TERSE_REDIS_PORT || '6379';
+const REDIS_PASS = process.env.TERSE_REDIS_PASS;
+const HTTP_PORT = process.env.TERSE_HTTP_PORT || process.env.VCAP_APP_PORT || 8080;
+const DEFAULT_GIST_ID = process.env.DEFAULT_GIST_ID || 5565184;
+const USER_AGENT = 'Terse/'+ VERSION;
 
 // Configure the web server
 var express = require('express');
@@ -25,6 +25,7 @@ var redis_client = redis.createClient( REDIS_PORT, REDIS_HOST );
 if( REDIS_PASS ) redis_client.auth( REDIS_PASS );
 var RedisStore = require('connect-redis')( express );
 
+router.locals.livereload = ( process.env.NODE_ENV === 'development' );
 router.engine( 'hbs', handlebars );
 router.set( 'view engine', 'hbs' );
 router.use( express.static( __dirname + '/assets' ) );
@@ -67,7 +68,6 @@ passport.use( new GithubStrategy({
 		'User-Agent': USER_AGENT
 	}
 }, function( access_token, refresh_token, profile, done ){
-
 	var user = {
 		username: profile.username,
 		name: profile.displayName,
@@ -77,35 +77,27 @@ passport.use( new GithubStrategy({
 		access_token: access_token,
 		refresh_token: refresh_token
 	};
-
 	done( null, user );
-
 }));
 
 // Routes
 router.get( '/', function( req, res ){
-
 	res.redirect( '/g/'+ DEFAULT_GIST_ID );
-
 });
 
 router.get( '/new', function( req, res ){
-
 	res.expose( req.user || {}, 'terse.user_data' );
 	res.render( 'index.hbs', {
 		user: req.user
 	});
-
 });
 
 router.get( '/g/:id', function( req, res ){
-
 	res.expose( req.user || {}, 'terse.user_data' );
 	res.expose( req.params || {}, 'terse.request.params' );
 	res.render( 'index.hbs', {
 		user: req.user
 	});
-
 });
 
 router.get( '/auth/github',	passport.authenticate( 'github', {
@@ -118,10 +110,8 @@ router.get( '/auth/github/callback', passport.authenticate( 'github', {
 }));
 
 router.get( '/logout', function( req, res ){
-
 	req.logout();
 	res.redirect('/');
-
 });
 
 router.listen( HTTP_PORT );

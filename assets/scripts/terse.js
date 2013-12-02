@@ -1,8 +1,18 @@
-// Set up the namespace
-var terse = this.terse = this.terse || {};
-terse.Models = terse.Models || {};
-terse.Collections = terse.Collections || {};
-terse.Routers = terse.Routers || {};
-terse.Views = terse.Views || {};
-terse.views = terse.views || {};
-terse.routers = terse.routers || {};
+/*
+Terse Module
+This is the base that includes all submodules and initializes the application
+*/
+
+var Backbone = require('backbone');
+
+// set up namespace
+var terse = window.terse = window.terse || {};
+
+// Router
+var Router = require('./routers/index.js');
+
+// initialize router
+terse.router = new Router;
+Backbone.history.start({
+	pushState: true
+});

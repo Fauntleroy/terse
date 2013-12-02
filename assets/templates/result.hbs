@@ -1,10 +1,10 @@
-<div id="result">
-	<ul class="nav nav-tabs">
-		<li class="ui-tabs-active"><a>Result</a></li>
-	</ul>
-	<div class="tab-content">
-		<div id="result-iframe">
-			<iframe></iframe>
-		</div>
-	</div>
-</div>
+<ul class="listing tabs">
+{{#each files}}
+	<li>
+		<a class="gray" href="#file">{{filename}}</a>
+		<a class="gray" href="#file-menu"><i class="fa fa-caret-down"></i></a>
+	</li>
+{{/each}}
+</ul>
+<a class="refresh" href="#refresh-result"><i class="fa fa-refresh"></i></a>
+<iframe></iframe>

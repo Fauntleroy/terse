@@ -1,0 +1,19 @@
+<section id="metadata">
+	<ul class="actions public">
+		<li class="comments"><a class="gray" href="{{html_url}}#comments" target="_blank"><i class="fa fa-comment-o"></i> <var>{{comments}}</var></a></li>
+		<li class="fork"><a class="gray" href="#fork"><i class="fa fa-code-fork"></i> <var>{{length forks}}</var></a></li>
+	</ul>
+	<ul class="actions owner">
+		<li class="privacy">{{#if public}}<i class="fa fa-eye"></i> public{{else}}<i class="fa fa-eye-slash"></i> private{{/if}}</li>
+	</ul>
+	<h1 class="title">
+	{{#user}}
+		{{#if html_url}}<a class="user" href="{{html_url}}" target="_blank">{{/if}}
+		<img class="avatar" src="{{avatar_url}}" /> {{login}}
+		{{#if html_url}}</a>{{/if}}
+	{{/user}}
+	{{#if html_url}} / <a class="file" href="{{html_url}}" target="_blank">{{#first files}}{{filename}}{{/first}}</a>{{/if}}
+	</h1>
+</section>
+<section id="editor"></section>
+<section id="result"></section>

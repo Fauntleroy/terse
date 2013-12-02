@@ -7,27 +7,29 @@
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="/compiled/styles.css">
 
+	{{#livereload}}<script src="http://localhost:35729/livereload.js"></script>{{/livereload}}
 	<script>{{{javascript}}}</script>
-	<script src="/compiled/terse.js"></script>
+	<script src="/compiled/scripts.js"></script>
 
 </head>
 <body>
 
-	<header>
+	<header id="header">
 		<a id="terse" href="/">Terse.</a>
-		<a id="new" class="btn primary" href="/new">New Terse <i class="icon-plus"></i></a>
-
+		<nav>
+			<a id="new" class="green" href="/new">New Terse <i class="fa fa-plus"></i></a>
+		</nav>
 		<div id="identity">
 			{{#user}}
 			<div id="user" class="dropdown right">
-				<a href="#dropdown"><img src="{{avatar}}" /> {{username}} <i class="icon-caret-down"></i></a>
+				<a href="#dropdown"><img src="{{avatar}}" /> {{username}} <i class="fa fa-caret-down"></i></a>
 				<ul class="items">
-					<li><a href="/logout">Log Out <i class="icon-signout"></i></a></li>
+					<li><a href="/logout">Log Out <i class="fa fa-signout"></i></a></li>
 				</ul>
 			</div>
 			{{/user}}
 			{{^user}}
-			<a id="github" href="/auth/github" class="btn primary">Login via GitHub <i class="icon-github"></i></a>
+			<a id="github" href="/auth/github">Login via GitHub <i class="fa fa-github"></i></a>
 			{{/user}}
 		</div>
 	</header>

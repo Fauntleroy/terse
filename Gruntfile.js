@@ -15,13 +15,12 @@ module.exports = function(grunt) {
 			}
 		},
 		handlebars: {
-			compile: {
+			templates: {
 				options: {
-					namespace: 'terse.templates',
-					processName: function( filename ){
-						filename = filename.replace( /^assets\/templates\//i, '' );
-						filename = filename.replace( /\.hbs$/i, '' );
-						return filename;
+					namespace: false,
+					commonjs: true,
+					processName: function( file_path ){
+						return file_path.replace( /^(assets\/templates\/)/, '' ).replace( /(\.hbs)$/, '' );
 					}
 				},
 				files: {
@@ -29,41 +28,72 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		concat: {
-			js: {
-				options: {
-					separator: ';'
-				},
-				files: {
-					'assets/compiled/terse.js': [
-						'assets/scripts/vendor/jquery/**/*.js',
-						'assets/scripts/vendor/jqueryui/**/*.js',
-						'assets/scripts/vendor/underscore/**/*.js',
-						'assets/scripts/vendor/backbone/**/*.js',
-						'assets/scripts/vendor/codemirror/codemirror.js',
-						'assets/scripts/vendor/codemirror/modes/**/*.js',
-						'assets/scripts/vendor/jwerty/jwerty.js',
-						'assets/scripts/vendor/handlebars/**/*.js',
-						'assets/scripts/terse.js',
-						'assets/scripts/header.js',
-						'assets/compiled/templates.js',
-						'assets/scripts/models/**/*.js',
-						'assets/scripts/views/**/*.js',
-						'assets/scripts/routers/**/*.js',
-						'assets/scripts/application.js'
-					]
+		browserify: {
+			options: {
+				shim: {
+					jquery: {
+						path: 'assets/scripts/vendor/jquery.js',
+						exports: '$'
+					},
+					codemirror: {
+						path: 'assets/scripts/vendor/codemirror/codemirror.js',
+						exports: 'CodeMirror'
+					},
+					'codemirror-mode-javascript': {
+						path: 'assets/scripts/vendor/codemirror/mode/javascript/javascript.js',
+						exports: null,
+						depends: {
+							codemirror: 'CodeMirror'
+						}
+					},
+					'codemirror-mode-css': {
+						path: 'assets/scripts/vendor/codemirror/mode/css/css.js',
+						exports: null,
+						depends: {
+							codemirror: 'CodeMirror'
+						}
+					},
+					'codemirror-mode-xml': {
+						path: 'assets/scripts/vendor/codemirror/mode/xml/xml.js',
+						exports: null,
+						depends: {
+							codemirror: 'CodeMirror'
+						}
+					},
+					'codemirror-mode-htmlmixed': {
+						path: 'assets/scripts/vendor/codemirror/mode/htmlmixed/htmlmixed.js',
+						exports: null,
+						depends: {
+							codemirror: 'CodeMirror'
+						}
+					}
 				}
 			},
-			css: {
+			terse: {
+				files: {
+					'assets/compiled/scripts.js': ['assets/scripts/terse.js']
+				}
+			}
+		},
+		less: {
+			compile: {
 				options: {
-					separator: '\n'
+					paths: ['assets/styles/'],
+					strictImports: true,
+					syncImport: true
 				},
 				files: {
-					'assets/compiled/styles.css': [
-						'assets/styles/vendor/font-awesome/**/*',
-						'assets/styles/vendor/codemirror/**/*',
-						'assets/compiled/styles.css'
-					]
+					'assets/compiled/styles.css': ['assets/styles/terse.less']
+				}
+			}
+		},
+		cssjoin: {
+			compile: {
+				options: {
+					paths: ['assets/styles']
+				},
+				files: {
+					'assets/compiled/styles.css': ['assets/compiled/styles.css']
 				}
 			}
 		},
@@ -89,13 +119,20 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
-			files: [
-				'assets/scripts/**/*.js',
-				'assets/styles/**/*.css',
-				'assets/styles/**/*.styl',
-				'assets/templates/**/*.hbs'
-			],
-			tasks: ['build']
+			css: {
+				files: [ 'assets/styles/**/*.less', 'assets/styles/**/*.css' ],
+				tasks: [ 'buildcss' ]
+			},
+			js: {
+				files: [ 'assets/templates/**/*.hbs', 'assets/scripts/**/*.js' ],
+				tasks: [ 'buildjs' ]
+			},
+			livereload: {
+				options: {
+					livereload: true
+				},
+				files: [ 'assets/compiled/styles.css' ]
+			}
 		},
 		jshint: {
 			all: [ 'assets/scripts/**/*.js', '!assets/scripts/vendor/**/*.js' ]
@@ -121,7 +158,9 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask( 'default', ['build'] );
-	grunt.registerTask( 'build', [ 'stylus', 'handlebars', 'concat' ] );
+	grunt.registerTask( 'buildcss', [ 'less', 'cssjoin' ] );
+	grunt.registerTask( 'buildjs', [ 'handlebars', 'browserify' ] );
+	grunt.registerTask( 'build', [ 'buildcss', 'buildjs' ] );
 	grunt.registerTask( 'minify', [ 'uglify', 'cssmin' ] );
 	grunt.registerTask( 'predeploy', [ 'build' ] );
 	grunt.registerTask( 'dev', [ 'build', 'server', 'watch' ] );
